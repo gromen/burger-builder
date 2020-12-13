@@ -30,7 +30,7 @@
 }
 
 .Seeds1:after {
-  content: "";
+  content: '';
   width: 100%;
   height: 100%;
   position: absolute;
@@ -43,7 +43,7 @@
 }
 
 .Seeds1:before {
-  content: "";
+  content: '';
   width: 100%;
   height: 100%;
   position: absolute;
@@ -68,7 +68,7 @@
 }
 
 .Seeds2:before {
-  content: "";
+  content: '';
   width: 100%;
   height: 100%;
   position: absolute;
@@ -104,11 +104,11 @@
   border-radius: 20px;
 }
 
-.Salad {
+.Onion {
   width: 85%;
   height: 3%;
   margin: 2% auto;
-  background: linear-gradient(#e3e70b, #ffee07);
+  background: linear-gradient(#ffffff, #cfcfc9);
   border-radius: 20px;
 }
 
