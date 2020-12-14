@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 const INGREDIENT_PRICES = {
   meat: 2,
   salad: 0.5,
-  cheese: 1,
+  chesse: 1,
   onion: 0.4,
   bacon: 0.9,
 };
@@ -32,8 +32,8 @@ class BurgerBuilder extends Component {
     ingredientsUpdated[type] = countUpdated;
     const ingredientPrice = INGREDIENT_PRICES[type];
     const oldPrice = this.state.totalPrice;
-    const newPrice = ingredientPrice + oldPrice;
-    this.setState({ ingredients: ingredientsUpdated, totalPrice: newPrice });
+    const newPrice = parseFloat(ingredientPrice + oldPrice).toFixed(2);
+    this.setState({ ingredients: ingredientsUpdated, totalPrice: Number(newPrice) });
   };
 
   ingredientRemove = (type) => {
