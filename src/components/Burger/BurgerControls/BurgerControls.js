@@ -10,7 +10,7 @@ const controls = [
   { label: 'Bacon', type: 'bacon' },
 ];
 
-const BurgerControls = ({ ingredientAdded, ingredientRemoved }) => (
+const BurgerControls = ({ ingredientAdded, ingredientRemoved, disabled }) => (
   <div>
     {controls.map((control) => (
       <BurgerControl
@@ -19,6 +19,7 @@ const BurgerControls = ({ ingredientAdded, ingredientRemoved }) => (
         key={control.label}
         label={control.label}
         type={control.type}
+        disabledNote={disabled[control.type]}
       />
     ))}
   </div>

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import BurgerControls from '../../components/Burger/BurgerControls/BurgerControls';
 import Aux from '../../hoc/Aux';
 import Burger from './../../components/Burger/Burger';
-import PropTypes from 'prop-types';
 
 const INGREDIENT_PRICES = {
   meat: 2,
@@ -43,10 +42,19 @@ class BurgerBuilder extends Component {
       ...this.state.ingredients,
     };
     ingredientsUpdated[type] = countUpdated;
-    this.setState({ ingredients: ingredientsUpdated });
+    const ingredientPrice = INGREDIENT_PRICES[type];
+    const oldPrice = this.state.totalPrice;
+    const newPrice = parseFloat(oldPrice - ingredientPrice).toFixed(2);
+    this.setState({ ingredients: ingredientsUpdated, totalPrice: Number(newPrice) });
   };
 
   render() {
+    const disabledNote = {
+      ...this.state.ingredients,
+    };
+    for (const key in disabledNote) {
+      disabledNote[key] = disabledNote[key] <= 0;
+    }
     return (
       <Aux>
         {this.state.totalPrice}
@@ -54,14 +62,11 @@ class BurgerBuilder extends Component {
         <BurgerControls
           ingredientAdded={this.ingredientAdd}
           ingredientRemoved={this.ingredientRemove}
+          disabled={disabledNote}
         />
       </Aux>
     );
   }
 }
-
-BurgerBuilder.propTypes = {
-  INGREDIENT_PRICES: PropTypes.number,
-};
 
 export default BurgerBuilder;
