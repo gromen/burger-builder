@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import BurgerControls from '../../components/Burger/BurgerControls/BurgerControls';
 import Aux from '../../hoc/Aux';
 import Burger from './../../components/Burger/Burger';
+import Modal from './../../components/Burger/Modal/Modal';
+import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 
 const INGREDIENT_PRICES = {
   meat: 2,
@@ -21,6 +23,7 @@ class BurgerBuilder extends Component {
     },
     totalPrice: '',
     canPurchase: false,
+    purchasing: false,
   };
 
   ingredientAdd = (type) => {
@@ -34,7 +37,7 @@ class BurgerBuilder extends Component {
     const oldPrice = this.state.totalPrice;
     const newPrice = parseFloat(ingredientPrice + oldPrice).toFixed(2);
     this.setState({ ingredients: ingredientsUpdated, totalPrice: Number(newPrice) });
-    this.updatePurchaseState();
+    this.updatePurchaseState(ingredientsUpdated);
   };
 
   ingredientRemove = (type) => {
@@ -48,15 +51,19 @@ class BurgerBuilder extends Component {
     const oldPrice = this.state.totalPrice;
     const newPrice = parseFloat(oldPrice - ingredientPrice).toFixed(2);
     this.setState({ ingredients: ingredientsUpdated, totalPrice: Number(newPrice) });
-    this.updatePurchaseState();
+    this.updatePurchaseState(ingredientsUpdated);
   };
 
-  updatePurchaseState = () => {
-    const ingredients = this.state.ingredients;
-    for (const key in ingredients) {
-      console.log(ingredients[key]);
-      this.setState({ canPurchase: ingredients[key] === false });
-    }
+  updatePurchaseState = (ingredients) => {
+    this.setState({ canPurchase: Object.values(ingredients).some((value) => value) });
+  };
+
+  purchase = () => {
+    this.setState({ purchasing: true });
+  };
+
+  purchaseCancel = () => {
+    this.setState({ purchasing: false });
   };
 
   render() {
@@ -75,7 +82,11 @@ class BurgerBuilder extends Component {
           disabled={disabledNote}
           totalPrice={this.state.totalPrice}
           canPurchase={!this.state.canPurchase}
+          order={this.purchase}
         />
+        <Modal show={this.state.purchasing} modalClose={this.purchaseCancel}>
+          <OrderSummary ingredients={this.state.ingredients} />
+        </Modal>
       </Aux>
     );
   }
