@@ -1,25 +1,18 @@
-import React from 'react';
-import BurgerControl from './BurgerControl/BurgerControl';
-import PropTypes from 'prop-types';
-import classes from './BurgerControl/BurgerControl.module.css';
+import React from "react";
+import BurgerControl from "./BurgerControl/BurgerControl";
+import PropTypes from "prop-types";
+import classes from "./BurgerControl/BurgerControl.module.css";
 
 const controls = [
-  { label: 'Salad', type: 'salad' },
-  { label: 'Meat', type: 'meat' },
-  { label: 'Chesse', type: 'chesse' },
-  { label: 'Onion', type: 'onion' },
-  { label: 'Bacon', type: 'bacon' },
+  { label: "Salad", type: "salad" },
+  { label: "Meat", type: "meat" },
+  { label: "Chesse", type: "chesse" },
+  { label: "Onion", type: "onion" },
+  { label: "Bacon", type: "bacon" },
 ];
 
-const BurgerControls = ({
-  ingredientAdded,
-  ingredientRemoved,
-  disabled,
-  totalPrice,
-  canPurchase,
-  order,
-}) => (
-  <div>
+const BurgerControls = ({ ingredientAdded, ingredientRemoved, disabled, totalPrice, canPurchase, order }) => (
+  <div style={{ textAlign: "center" }}>
     <p>Total price: {totalPrice}</p>
     {controls.map((control) => (
       <BurgerControl
@@ -31,7 +24,7 @@ const BurgerControls = ({
         disabledNote={disabled[control.type]}
       />
     ))}
-    <button className={classes.OrderButton} disabled={canPurchase} onClick={order}>
+    <button style={{ marginTop: "50px" }} className={classes.OrderButton} disabled={canPurchase} onClick={order}>
       Order burger
     </button>
   </div>
