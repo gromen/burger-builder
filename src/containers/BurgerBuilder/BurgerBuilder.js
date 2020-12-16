@@ -34,7 +34,7 @@ class BurgerBuilder extends Component {
     const oldPrice = this.state.totalPrice;
     const newPrice = parseFloat(ingredientPrice + oldPrice).toFixed(2);
     this.setState({ ingredients: ingredientsUpdated, totalPrice: Number(newPrice) });
-    this.updatePurchaseState();
+    this.updatePurchaseState(ingredientsUpdated);
   };
 
   ingredientRemove = (type) => {
@@ -48,15 +48,11 @@ class BurgerBuilder extends Component {
     const oldPrice = this.state.totalPrice;
     const newPrice = parseFloat(oldPrice - ingredientPrice).toFixed(2);
     this.setState({ ingredients: ingredientsUpdated, totalPrice: Number(newPrice) });
-    this.updatePurchaseState();
+    this.updatePurchaseState(ingredientsUpdated);
   };
 
-  updatePurchaseState = () => {
-    const ingredients = this.state.ingredients;
-    for (const key in ingredients) {
-      console.log(ingredients[key]);
-      this.setState({ canPurchase: ingredients[key] === false });
-    }
+  updatePurchaseState = (ingredients) => {
+    this.setState({ canPurchase: Object.values(ingredients).some((key) => key) });
   };
 
   render() {
