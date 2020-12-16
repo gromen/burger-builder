@@ -1,7 +1,7 @@
-import React from 'react';
-import classes from './Modal.module.css';
-import Backdrop from '../Backdrop/Backdrop';
-import Aux from '../../../hoc/Aux';
+import React from "react";
+import classes from "./Modal.module.css";
+import Backdrop from "../Backdrop/Backdrop";
+import Aux from "../../../hoc/Aux";
 
 const modal = ({ children, show, modalClose }) => (
   <Aux>
@@ -9,7 +9,7 @@ const modal = ({ children, show, modalClose }) => (
     <div
       className={classes.Modal}
       style={{
-        transform: show ? 'translateY(0)' : 'translateY(-1000px)',
+        transform: show ? "translateY(0)" : "translateY(-1000px)",
       }}
     >
       {children}

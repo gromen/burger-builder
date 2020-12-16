@@ -1,0 +1,10 @@
+.Burger {
+  height: 400px;
+  margin: 0 auto;
+  overflow-y: auto;
+  width: 500px;
+}
+
+p {
+  text-align: center;
+}

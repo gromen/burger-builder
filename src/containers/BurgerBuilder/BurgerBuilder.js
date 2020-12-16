@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import BurgerControls from '../../components/Burger/BurgerControls/BurgerControls';
-import Aux from '../../hoc/Aux';
-import Burger from './../../components/Burger/Burger';
-import Modal from './../../components/Burger/Modal/Modal';
-import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
+import React, { Component } from "react";
+import BurgerControls from "../../components/Burger/BurgerControls/BurgerControls";
+import Aux from "../../hoc/Aux";
+import Burger from "./../../components/Burger/Burger";
+import Modal from "./../../components/Burger/Modal/Modal";
+import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 
 const INGREDIENT_PRICES = {
   meat: 2,
@@ -21,7 +21,7 @@ class BurgerBuilder extends Component {
       onion: 0,
       bacon: 0,
     },
-    totalPrice: '',
+    totalPrice: "",
     canPurchase: false,
     purchasing: false,
   };
