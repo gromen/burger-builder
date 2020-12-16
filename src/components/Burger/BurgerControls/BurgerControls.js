@@ -1,6 +1,7 @@
 import React from 'react';
 import BurgerControl from './BurgerControl/BurgerControl';
 import PropTypes from 'prop-types';
+import classes from './BurgerControl/BurgerControl.module.css';
 
 const controls = [
   { label: 'Salad', type: 'salad' },
@@ -10,8 +11,15 @@ const controls = [
   { label: 'Bacon', type: 'bacon' },
 ];
 
-const BurgerControls = ({ ingredientAdded, ingredientRemoved, disabled }) => (
+const BurgerControls = ({
+  ingredientAdded,
+  ingredientRemoved,
+  disabled,
+  totalPrice,
+  canPurchase,
+}) => (
   <div>
+    <p>Total price: {totalPrice}</p>
     {controls.map((control) => (
       <BurgerControl
         added={() => ingredientAdded(control.type)}
@@ -22,6 +30,9 @@ const BurgerControls = ({ ingredientAdded, ingredientRemoved, disabled }) => (
         disabledNote={disabled[control.type]}
       />
     ))}
+    <button className={classes.OrderButton} disabled={canPurchase}>
+      Order burger
+    </button>
   </div>
 );
 
