@@ -17,6 +17,7 @@ const BurgerControls = ({
   disabled,
   totalPrice,
   canPurchase,
+  order,
 }) => (
   <div>
     <p>Total price: {totalPrice}</p>
@@ -30,7 +31,7 @@ const BurgerControls = ({
         disabledNote={disabled[control.type]}
       />
     ))}
-    <button className={classes.OrderButton} disabled={canPurchase}>
+    <button className={classes.OrderButton} disabled={canPurchase} onClick={order}>
       Order burger
     </button>
   </div>

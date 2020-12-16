@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import BurgerControls from '../../components/Burger/BurgerControls/BurgerControls';
 import Aux from '../../hoc/Aux';
 import Burger from './../../components/Burger/Burger';
+import Modal from '../../components/Modal/Modal';
+import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 
 const INGREDIENT_PRICES = {
   meat: 2,
@@ -21,6 +23,7 @@ class BurgerBuilder extends Component {
     },
     totalPrice: '',
     canPurchase: false,
+    purchasing: false,
   };
 
   ingredientAdd = (type) => {
@@ -52,7 +55,15 @@ class BurgerBuilder extends Component {
   };
 
   updatePurchaseState = (ingredients) => {
-    this.setState({ canPurchase: Object.values(ingredients).some((key) => key) });
+    this.setState({ canPurchase: Object.values(ingredients).some((value) => value) });
+  };
+
+  purchase = () => {
+    this.setState({ purchasing: true });
+  };
+
+  purchaseCancel = () => {
+    this.setState({ purchasing: false });
   };
 
   render() {
@@ -71,7 +82,11 @@ class BurgerBuilder extends Component {
           disabled={disabledNote}
           totalPrice={this.state.totalPrice}
           canPurchase={!this.state.canPurchase}
+          order={this.purchase}
         />
+        <Modal show={this.state.purchasing} modalClose={this.purchaseCancel}>
+          <OrderSummary ingredients={this.state.ingredients} />
+        </Modal>
       </Aux>
     );
   }
