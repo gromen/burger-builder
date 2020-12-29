@@ -1,6 +1,6 @@
-import './App.css';
-import Layout from './components/Layout';
-import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
+import "./App.module.css";
+import Layout from "./components/Layout";
+import BurgerBuilder from "./containers/BurgerBuilder/BurgerBuilder";
 
 function App() {
   return (
