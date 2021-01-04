@@ -1,5 +1,5 @@
-import React from 'react';
-import classes from './Backdrop.module.css';
+import React from "react";
+import classes from "./Backdrop.module.css";
 
 const backdrop = ({ show, children, clicked }) =>
   show ? (
