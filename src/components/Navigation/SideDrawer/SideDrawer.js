@@ -4,7 +4,7 @@ import Navigation from "../Navigation";
 import Logo from "../../Logo/Logo";
 import classes from "./SideDrawer.module.css";
 import Backdrop from "../../Backdrop/Backdrop";
-import Aux from "../../../hoc/Aux";
+import Aux from "../../../hoc/Aux/Aux";
 
 const sideDrawer = ({ opened, closed }) => {
   return (
