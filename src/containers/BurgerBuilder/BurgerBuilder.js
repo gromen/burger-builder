@@ -4,6 +4,8 @@ import Aux from "../../hoc/Aux/Aux";
 import Burger from "./../../components/Burger/Burger";
 import Modal from "./../../components/Burger/Modal/Modal";
 import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
+import axios from "../../axios-orders";
+import Spinner from "../../components/Spinner/Spinner";
 
 const INGREDIENT_PRICES = {
   meat: 2,
@@ -24,6 +26,7 @@ class BurgerBuilder extends Component {
     totalPrice: "",
     canPurchase: false,
     purchasing: false,
+    loading: false,
   };
 
   ingredientAdd = (type) => {
@@ -67,7 +70,32 @@ class BurgerBuilder extends Component {
   };
 
   purchaseContinue = () => {
-    alert("proceed!!!");
+    this.setState({ loading: true });
+
+    const order = {
+      ingredients: this.state.ingredients,
+      price: this.state.totalPrice,
+      customer: {
+        name: "Marcin Gromek",
+        address: {
+          street: "teststreet",
+          zipCode: "00-3323",
+          country: "Poland",
+        },
+        email: "test@test.com",
+      },
+      deliveryMethod: "fast",
+    };
+
+    axios
+      .post("/orders.json", order)
+      .then((response) => {
+        this.setState({ loading: false });
+        console.log(response);
+      })
+      .catch((error) => {
+        this.setState({ loading: false });
+      });
   };
 
   render() {
@@ -76,6 +104,18 @@ class BurgerBuilder extends Component {
     };
     for (const key in disabledNote) {
       disabledNote[key] = disabledNote[key] <= 0;
+    }
+
+    let orderSummary = (
+      <OrderSummary
+        ingredients={this.state.ingredients}
+        purchaseCancelled={this.purchaseCancel}
+        purchaseProceed={this.purchaseContinue}
+        price={this.state.totalPrice}
+      />
+    );
+    if (this.state.loading) {
+      orderSummary = <Spinner />;
     }
     return (
       <Aux>
@@ -89,12 +129,7 @@ class BurgerBuilder extends Component {
           order={this.purchase}
         />
         <Modal show={this.state.purchasing} modalClose={this.purchaseCancel}>
-          <OrderSummary
-            ingredients={this.state.ingredients}
-            purchaseCancelled={this.purchaseCancel}
-            purchaseProceed={this.purchaseContinue}
-            price={this.state.totalPrice}
-          />
+          {orderSummary}
         </Modal>
       </Aux>
     );
