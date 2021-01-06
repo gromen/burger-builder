@@ -17,18 +17,24 @@ const INGREDIENT_PRICES = {
 };
 class BurgerBuilder extends Component {
   state = {
-    ingredients: {
-      meat: 0,
-      salad: 0,
-      chesse: 0,
-      onion: 0,
-      bacon: 0,
-    },
+    ingredients: null,
     totalPrice: "",
     canPurchase: false,
     purchasing: false,
     loading: false,
+    error: false,
   };
+
+  componentDidMount() {
+    axios
+      .get("/ingredients.json")
+      .then((response) => {
+        this.setState({ ingredients: response.data });
+      })
+      .catch((error) => {
+        this.setState({ error: true });
+      });
+  }
 
   ingredientAdd = (type) => {
     const countOld = this.state.ingredients[type];
@@ -107,31 +113,48 @@ class BurgerBuilder extends Component {
       disabledNote[key] = disabledNote[key] <= 0;
     }
 
-    let orderSummary = (
-      <OrderSummary
-        ingredients={this.state.ingredients}
-        purchaseCancelled={this.purchaseCancel}
-        purchaseProceed={this.purchaseContinue}
-        price={this.state.totalPrice}
-      />
+    let orderSummary = null;
+
+    let burger = this.state.error ? (
+      <p style={{ marginTop: "50px", textAlign: "center" }}>ingredients can't be loaded</p>
+    ) : (
+      <Spinner />
     );
+
+    if (this.state.ingredients) {
+      burger = (
+        <Aux>
+          <Burger ingredients={this.state.ingredients} />
+          <BurgerControls
+            ingredientAdded={this.ingredientAdd}
+            ingredientRemoved={this.ingredientRemove}
+            disabled={disabledNote}
+            totalPrice={this.state.totalPrice}
+            canPurchase={!this.state.canPurchase}
+            order={this.purchase}
+          />
+        </Aux>
+      );
+
+      orderSummary = (
+        <OrderSummary
+          ingredients={this.state.ingredients}
+          purchaseCancelled={this.purchaseCancel}
+          purchaseProceed={this.purchaseContinue}
+          price={this.state.totalPrice}
+        />
+      );
+    }
+
     if (this.state.loading) {
       orderSummary = <Spinner />;
     }
     return (
       <Aux>
-        <Burger ingredients={this.state.ingredients} />
-        <BurgerControls
-          ingredientAdded={this.ingredientAdd}
-          ingredientRemoved={this.ingredientRemove}
-          disabled={disabledNote}
-          totalPrice={this.state.totalPrice}
-          canPurchase={!this.state.canPurchase}
-          order={this.purchase}
-        />
         <Modal show={this.state.purchasing} modalClose={this.purchaseCancel}>
           {orderSummary}
         </Modal>
+        {burger}
       </Aux>
     );
   }
