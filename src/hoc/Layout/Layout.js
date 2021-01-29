@@ -20,7 +20,7 @@ class Layout extends Component {
       <Aux>
         <Header clickedLogo={this.sideDrawerToggleHandler} openedSideDrawer={this.state.isVisibleSideDrawer} />
         <SideDrawer opened={this.state.isVisibleSideDrawer} closed={this.sideDrawerToggleHandler} />
-        <main>{this.props.children}</main>
+        <main style={{ marginTop: "56px" }}>{this.props.children}</main>
       </Aux>
     );
   }

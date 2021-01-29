@@ -1,13 +1,19 @@
 import React from "react";
-import NavigationItem from "../NavigationItems/NavigationItem/NavigationItem";
+import { NavLink } from "react-router-dom";
+
 import classes from "./NavigationItems.module.css";
+import classesNavItem from "./../NavigationItems/NavigationItem/NavigationItem.module.css";
 
 const navigationItems = () => (
   <ul className={classes.NavigationItems}>
-    <NavigationItem link='/' active='true'>
-      BurgerBuilder
-    </NavigationItem>
-    <NavigationItem>Checkout</NavigationItem>
+    <li className={classesNavItem.NavigationItem}>
+      <NavLink exact to='/'>
+        BurgerBuilder
+      </NavLink>
+    </li>
+    <li className={classesNavItem.NavigationItem}>
+      <NavLink to='/checkout/'>Checkout</NavLink>
+    </li>
   </ul>
 );
 

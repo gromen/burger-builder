@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 import BurgerControls from "../../components/Burger/BurgerControls/BurgerControls";
 import Aux from "../../hoc/Aux/Aux";
 import Burger from "./../../components/Burger/Burger";
@@ -149,6 +150,7 @@ class BurgerBuilder extends Component {
     if (this.state.loading) {
       orderSummary = <Spinner />;
     }
+
     return (
       <Aux>
         <Modal show={this.state.purchasing} modalClose={this.purchaseCancel}>
