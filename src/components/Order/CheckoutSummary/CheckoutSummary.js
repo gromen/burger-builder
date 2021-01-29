@@ -5,12 +5,16 @@ import Button from "../../UI/Button/Button";
 
 import classes from "./CheckoutSummary.module.css";
 
-const checkoutSummary = ({ ingredients }) => (
+const checkoutSummary = ({ ingredients, onCheckoutCancelled, onCheckoutSucceed }) => (
   <div className={classes.CheckoutSummary}>
     <h1>Checkout Summary</h1>
     <Burger ingredients={ingredients} />
-    <Button btnType='Danger'>Cancel</Button>
-    <Button btnType='Success'>Continue</Button>
+    <Button clicked={onCheckoutCancelled} btnType='Danger'>
+      Cancel
+    </Button>
+    <Button clicked={onCheckoutSucceed} btnType='Success'>
+      Continue
+    </Button>
   </div>
 );
 
