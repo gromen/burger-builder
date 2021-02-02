@@ -21,7 +21,6 @@ class Modal extends Component {
         >
           {children}
         </div>
-        ;
       </Aux>
     );
   }

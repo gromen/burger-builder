@@ -15,7 +15,11 @@ const Burger = (props) => {
       return arr.concat(curr);
     }, []);
   if (ingredientsAll.length === 0) {
-    ingredientsAll = <p className={classesGlobal.TextCenter}>Add ingredients, please</p>;
+    ingredientsAll = (
+      <p className={classesGlobal.TextCenter} style={{ fontWeight: "600" }}>
+        Add ingredients, please
+      </p>
+    );
   }
   return (
     <div className={classes.Burger}>
