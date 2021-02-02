@@ -1,53 +1,53 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 
 import classes from "./ContactData.module.css";
 
-class ContactData extends Component {
-  state = {
-    name: "",
-    email: "",
-    address: {
-      street: "",
-      postalCode: "",
-    },
-    valdated: false,
-  };
+function ContactData() {
+  // const [data, setData] = useState({});
+  const [isValidated, setIsValidated] = useState(false);
 
-  handleSubmit = (event) => {
+  const handleSubmit = (event) => {
     const form = event.target;
-    if (form.checkValidity() === false) {
+
+    if (!form.checkValidity()) {
       event.preventDefault();
       event.stopPropagation();
     }
 
-    this.setState({ validated: true });
+    setIsValidated(true);
   };
 
-  render() {
-    return (
-      <div className={classes.ContactData}>
-        <h4>Contact Data</h4>
-        <Form noValidate validated={this.state.validated} onSubmit={this.handleSubmit}>
-          <Form.Group controlId='email'>
-            <Form.Control type='email' placeholder='Your email' />
-          </Form.Group>
-          <Form.Group controlId='name'>
-            <Form.Control type='text' placeholder='Your name' />
-          </Form.Group>
-          <Form.Group controlId='street'>
-            <Form.Control type='text' placeholder='street' />
-          </Form.Group>
-          <Form.Group controlId='postal'>
-            <Form.Control type='text' placeholder='Postal code' />
-          </Form.Group>
-          <Button variant='primary' type='submit'>
-            Order
-          </Button>
-        </Form>
-      </div>
-    );
-  }
+  return (
+    <div className={classes.ContactData}>
+      <Form
+        className={classes.ContactData}
+        noValidate
+        validated={isValidated}
+        onSubmit={(event) => handleSubmit(event)}
+      >
+        <Form.Group controlId='email'>
+          <Form.Control type='email' placeholder='Enter email' />
+        </Form.Group>
+
+        <Form.Group controlId='formBasicPassword'>
+          <Form.Control type='text' placeholder='Your Name' />
+        </Form.Group>
+
+        <Form.Group controlId='street'>
+          <Form.Control type='text' placeholder='Street' />
+        </Form.Group>
+
+        <Form.Group controlId='postalCode'>
+          <Form.Control type='text' placeholder='Postal Code' />
+        </Form.Group>
+
+        <Button variant='primary' type='submit'>
+          Submit
+        </Button>
+      </Form>
+    </div>
+  );
 }
 
 export default ContactData;

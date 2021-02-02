@@ -1,8 +1,7 @@
-import React from "react";
 import Aux from "../../../hoc/Aux/Aux";
 import Button from "../../UI/Button/Button";
 
-const orderSummary = ({ ingredients, purchaseCancelled, purchaseProceed, price }) => {
+function orderSummary({ ingredients, purchaseCancelled, purchaseProceed, price }) {
   const ingredientsItems = Object.keys(ingredients).map((ingredient) => {
     return (
       <li key={ingredient}>
@@ -26,6 +25,6 @@ const orderSummary = ({ ingredients, purchaseCancelled, purchaseProceed, price }
       </Button>
     </Aux>
   );
-};
+}
 
 export default orderSummary;

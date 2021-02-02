@@ -12,26 +12,28 @@ const controls = [
   { label: "Bacon", type: "bacon" },
 ];
 
-const BurgerControls = ({ ingredientAdded, ingredientRemoved, disabled, totalPrice, canPurchase, order }) => (
-  <div className={classesGlobal.TextCenter}>
-    <p className={classesGlobal.TextCenter}>
-      Total price: <strong>{totalPrice}</strong>
-    </p>
-    {controls.map((control) => (
-      <BurgerControl
-        added={() => ingredientAdded(control.type)}
-        removed={() => ingredientRemoved(control.type)}
-        key={control.label}
-        label={control.label}
-        type={control.type}
-        disabledNote={disabled[control.type]}
-      />
-    ))}
-    <button className={classes.OrderButton} disabled={canPurchase} onClick={order}>
-      Order burger
-    </button>
-  </div>
-);
+function BurgerControls({ ingredientAdded, ingredientRemoved, disabled, totalPrice, canPurchase, order }) {
+  return (
+    <div className={classesGlobal.TextCenter}>
+      <p className={classesGlobal.TextCenter}>
+        Total price: <strong>{totalPrice}</strong>
+      </p>
+      {controls.map((control) => (
+        <BurgerControl
+          added={() => ingredientAdded(control.type)}
+          removed={() => ingredientRemoved(control.type)}
+          key={control.label}
+          label={control.label}
+          type={control.type}
+          disabledNote={disabled[control.type]}
+        />
+      ))}
+      <button className={classes.OrderButton} disabled={canPurchase} onClick={order}>
+        Order burger
+      </button>
+    </div>
+  );
+}
 
 BurgerControls.propTypes = {
   ingredientAdded: PropTypes.func.isRequired,

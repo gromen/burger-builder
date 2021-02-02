@@ -6,7 +6,7 @@ import classes from "./SideDrawer.module.css";
 import Backdrop from "../../Backdrop/Backdrop";
 import Aux from "../../../hoc/Aux/Aux";
 
-const sideDrawer = ({ opened, closed }) => {
+function sideDrawer({ opened, closed }) {
   return (
     <Aux>
       <Backdrop show={opened} clicked={closed} />
@@ -18,6 +18,6 @@ const sideDrawer = ({ opened, closed }) => {
       </div>
     </Aux>
   );
-};
+}
 
 export default sideDrawer;
