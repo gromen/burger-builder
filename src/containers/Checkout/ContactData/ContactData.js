@@ -9,7 +9,6 @@ function ContactData(props) {
   // const [data, setData] = useState({});
   const [isValidated, setIsValidated] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState({});
 
   const handleSubmit = (event) => {
     const form = event.target;
@@ -19,8 +18,10 @@ function ContactData(props) {
       event.stopPropagation();
     } else {
       setLoading(true);
+      const orderDate = new Date();
 
       const order = {
+        orderDate: orderDate.toLocaleString("pl-PL"),
         ingredients: props.ingredients,
         price: props.price,
         customer: {
@@ -40,7 +41,6 @@ function ContactData(props) {
         .then((response) => {
           setLoading(false);
           setIsValidated(false);
-          setData(JSON.parse(response.config.data));
           props.history.push("/");
         })
         .catch((error) => {
