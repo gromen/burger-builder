@@ -6,13 +6,18 @@ import ContactData from "./ContactData/ContactData";
 
 function Checkout(props) {
   const [ingredients, setIngredients] = useState({});
+  const [price, setPrice] = useState(0);
 
   useEffect(() => {
     const query = new URLSearchParams(props.location.search);
     const ingredients = {};
     for (let param of query.entries()) {
       // ['salad', '1']
-      ingredients[param[0]] = +param[1];
+      if (param[0] === "price") {
+        setPrice(price + param[1]);
+      } else {
+        ingredients[param[0]] = +param[1];
+      }
     }
     setIngredients(ingredients);
     // eslint-disable-next-line
@@ -35,7 +40,7 @@ function Checkout(props) {
       />
       <Route
         path={`${props.match.path}/contact-data`}
-        render={(props) => <ContactData ingredients={ingredients} {...props} />}
+        render={(props) => <ContactData ingredients={ingredients} price={parseFloat(price)} {...props} />}
       />
     </div>
   );

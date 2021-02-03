@@ -12,6 +12,9 @@ function navigationItems() {
         </NavLink>
       </li>
       <li className={classesNavItem.NavigationItem}>
+        <NavLink to='/orders/'>Orders</NavLink>
+      </li>
+      <li className={classesNavItem.NavigationItem}>
         <NavLink to='/checkout/'>Checkout</NavLink>
       </li>
     </ul>
