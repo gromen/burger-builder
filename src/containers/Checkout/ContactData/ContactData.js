@@ -1,14 +1,22 @@
 import React, { useState } from "react";
+import { Form, Button } from "react-bootstrap";
+
 import axios from "../../../axios-orders";
 import Spinner from "../../../components/Spinner/Spinner";
-import { Form, Button } from "react-bootstrap";
+import { useForm } from "../../../hooks/useForm";
 
 import classes from "./ContactData.module.css";
 
 function ContactData(props) {
-  // const [data, setData] = useState({});
   const [isValidated, setIsValidated] = useState(false);
   const [loading, setLoading] = useState(false);
+  const { formData, inputChangeHandler } = useForm({
+    name: "",
+    email: "",
+    zipCode: "",
+    country: "",
+    street: "",
+  });
 
   const handleSubmit = (event) => {
     const form = event.target;
@@ -19,21 +27,20 @@ function ContactData(props) {
     } else {
       setLoading(true);
       const orderDate = new Date();
-
       const order = {
-        orderDate: orderDate.toLocaleString("pl-PL"),
+        orderDate: orderDate.toLocaleString("pl-PL", {
+          year: "numeric",
+          month: "numeric",
+          day: "2-digit",
+          hour: "numeric",
+          minute: "numeric",
+          hourCycle: "h23",
+        }),
         ingredients: props.ingredients,
         price: props.price,
         customer: {
-          name: "Marcin Gromek",
-          address: {
-            street: "teststreet",
-            zipCode: "00-3323",
-            country: "Poland",
-          },
-          email: "test@test.com",
+          formData,
         },
-        deliveryMethod: "fast",
       };
 
       axios
@@ -52,25 +59,64 @@ function ContactData(props) {
   };
 
   const form = !loading ? (
-    <Form className={classes.ContactData} noValidate validated={isValidated} onSubmit={(event) => handleSubmit(event)}>
+    <Form
+      className={classes.ContactData}
+      noValidate
+      validated={isValidated}
+      onSubmit={(event) => handleSubmit(event)}
+    >
       <Form.Group controlId='email'>
-        <Form.Control type='email' placeholder='Enter email' required />
+        <Form.Control
+          name='email'
+          onChange={inputChangeHandler}
+          placeholder='Enter email'
+          required
+          type='email'
+        />
       </Form.Group>
 
-      <Form.Group controlId='formBasicPassword'>
-        <Form.Control type='text' placeholder='Your Name' required />
+      <Form.Group controlId='name'>
+        <Form.Control
+          name='name'
+          onChange={inputChangeHandler}
+          placeholder='Your Name'
+          required
+          type='text'
+        />
       </Form.Group>
 
       <Form.Group controlId='street'>
-        <Form.Control type='text' placeholder='Street' required />
+        <Form.Control
+          name='street'
+          onChange={inputChangeHandler}
+          placeholder='Street'
+          required
+          type='text'
+        />
       </Form.Group>
 
-      <Form.Group controlId='postalCode'>
-        <Form.Control type='text' placeholder='Postal Code' required />
+      <Form.Group controlId='country'>
+        <Form.Control
+          name='country'
+          onChange={inputChangeHandler}
+          placeholder='country'
+          required
+          type='text'
+        />
+      </Form.Group>
+
+      <Form.Group controlId='zipCode'>
+        <Form.Control
+          name='zipCode'
+          type='text'
+          placeholder='Zip Code'
+          required
+          onChange={inputChangeHandler}
+        />
       </Form.Group>
 
       <Button variant='primary' type='submit'>
-        Submit
+        Order
       </Button>
     </Form>
   ) : (

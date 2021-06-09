@@ -11,7 +11,7 @@ function navigationItems() {
 
       <NavigationItem link='/orders/'>Orders</NavigationItem>
 
-      <NavigationItem link='/checkout/'>Checkout</NavigationItem>
+      {/* <NavigationItem link='/checkout/'>Checkout</NavigationItem> */}
     </ul>
   );
 }
