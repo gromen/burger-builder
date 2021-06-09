@@ -1,4 +1,4 @@
-import { Card, Button, Badge } from "react-bootstrap";
+import { Card, Button, Badge } from 'react-bootstrap';
 
 function Order({ ingredients, price, orderDate, deliveryMethod }) {
   const orderIngredients = [];
@@ -12,12 +12,14 @@ function Order({ ingredients, price, orderDate, deliveryMethod }) {
 
   const orderIngredientsOutput = orderIngredients.map((ingredient) => (
     <Button
-      className='mr-2 mb-2 mb-md-0 d-block d-md-inline-block text-capitalize'
+      className='mr-2 mt-2 mt-md-0 d-block d-md-inline-block text-capitalize'
       variant='primary'
       key={ingredient.name}
     >
       {ingredient.name} <Badge variant='light'>{ingredient.amount}</Badge>
-      <span className='sr-only'>{ingredient.name}</span>
+      <span className='sr-only'>
+        {ingredient.name} amount: {ingredient.amount}
+      </span>
     </Button>
   ));
 
