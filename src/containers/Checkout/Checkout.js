@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { Route } from "react-router-dom";
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import { Route } from 'react-router-dom';
 
-import CheckoutSummary from "../../components/Order/CheckoutSummary/CheckoutSummary";
-import ContactData from "./ContactData/ContactData";
+import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
+import ContactData from './ContactData/ContactData';
 
 function Checkout(props) {
   const [ingredients, setIngredients] = useState({});
@@ -10,16 +11,14 @@ function Checkout(props) {
 
   useEffect(() => {
     const query = new URLSearchParams(props.location.search);
-    const ingredients = {};
-    for (let param of query.entries()) {
-      // ['salad', '1']
-      if (param[0] === "price") {
-        setPrice(price + param[1]);
-      } else {
-        ingredients[param[0]] = +param[1];
-      }
+    const ingredientElements = {};
+
+    for (const param of query.entries()) {
+      if (param[0] === 'price') setPrice(price + param[1]);
+      else ingredientElements[param[0]] = +param[1];
     }
-    setIngredients(ingredients);
+
+    setIngredients(ingredientElements);
     // eslint-disable-next-line
   }, []);
 
@@ -28,7 +27,7 @@ function Checkout(props) {
   }
 
   function onCheckoutSucceedHandler() {
-    props.history.replace("/checkout/contact-data");
+    props.history.replace('/checkout/contact-data');
   }
 
   return (
@@ -40,10 +39,19 @@ function Checkout(props) {
       />
       <Route
         path={`${props.match.path}/contact-data`}
-        render={(props) => <ContactData ingredients={ingredients} price={parseFloat(price)} {...props} />}
+        render={propsContactData => (
+          <ContactData
+            ingredients={ingredients} price={parseFloat(price)}
+            {...propsContactData}
+          />
+)}
       />
     </div>
   );
 }
 
 export default Checkout;
+
+Checkout.propTypes = {
+  price: PropTypes.number.isRequired,
+};

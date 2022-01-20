@@ -1,5 +1,5 @@
 {
-  "homepage": "https://gromen.github.io/burgerBuilder",
+  "homepage": "https://marcin-gromek-wttech.github.io/burgerBuilder/",
   "name": "burger-builder-app",
   "version": "0.1.0",
   "private": true,
@@ -13,6 +13,7 @@
     "@types/react-dom": "^17.0.7",
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
+    "eslint": "^8.7.0",
     "firebase": "^8.2.5",
     "gh-pages": "^3.1.0",
     "jquery": "^3.5.1",
@@ -36,12 +37,6 @@
     "deploy": "gh-pages -d build"
   },
   "proxy": "https://react-burger-701-default-rtdb.firebaseio.com",
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -55,6 +50,14 @@
     ]
   },
   "devDependencies": {
-    "eslint-plugin-react-hooks": "^4.2.0"
+    "@babel/core": "^7.16.7",
+    "@babel/eslint-parser": "^7.16.5",
+    "@babel/plugin-syntax-jsx": "^7.16.7",
+    "@babel/preset-react": "^7.16.7",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-react-hooks": "^4.3.0"
   }
 }
