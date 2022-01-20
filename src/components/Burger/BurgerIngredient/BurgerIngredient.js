@@ -1,36 +1,39 @@
-import React from "react";
-import classes from "./BurgerIngredient.module.css";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
+import classes from './BurgerIngredient.module.css';
 
 function BurgerIngredient({ type }) {
   let ingredient = null;
+  // eslint-disable-next-line
+	console.log(type);
 
   switch (type) {
-    case "bread-top":
+    case 'bread-top':
       ingredient = (
         <div className={classes.BreadTop}>
-          <div className={classes.Seeds1}></div>
-          <div className={classes.Seeds2}></div>
+          <div className={classes.Seeds1} />
+          <div className={classes.Seeds2} />
         </div>
       );
+
       break;
-    case "bread-bottom":
-      ingredient = <div className={classes.BreadBottom}></div>;
+    case 'bread-bottom':
+      ingredient = <div className={classes.BreadBottom} />;
       break;
-    case "meat":
-      ingredient = <div className={classes.Meat}></div>;
+    case 'meat':
+      ingredient = <div className={classes.Meat} />;
       break;
-    case "chesse":
-      ingredient = <div className={classes.Cheese}></div>;
+    case 'chesse':
+      ingredient = <div className={classes.Cheese} />;
       break;
-    case "salad":
-      ingredient = <div className={classes.Salad}></div>;
+    case 'salad':
+      ingredient = <div className={classes.Salad} />;
       break;
-    case "onion":
-      ingredient = <div className={classes.Onion}></div>;
+    case 'onion':
+      ingredient = <div className={classes.Onion} />;
       break;
-    case "bacon":
-      ingredient = <div className={classes.Bacon}></div>;
+    case 'bacon':
+      ingredient = <div className={classes.Bacon} />;
       break;
     default:
       ingredient = null;

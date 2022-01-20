@@ -1,20 +1,23 @@
-import React from "react";
-import { Route, Switch } from "react-router-dom";
-
-import BurgerBuilder from "./containers/BurgerBuilder/BurgerBuilder";
-import Checkout from "./containers/Checkout/Checkout";
-import Layout from "./hoc/Layout/Layout";
-import Orders from "./containers/Orders/Orders";
-
-import "./App.module.css";
+import './App.module.css';
+import { Route, Switch } from 'react-router-dom';
+import React, { useState } from 'react';
+import AuthContext from './store/auth-context';
+import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
+import Checkout from './containers/Checkout/Checkout';
+import Layout from './hoc/Layout/Layout';
+import Orders from './containers/Orders/Orders';
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   return (
     <Layout>
       <Switch>
-        <Route exact path='/' component={BurgerBuilder} />
-        <Route path='/checkout' component={Checkout} />
-        <Route path='/orders' component={Orders} />
+        <AuthContext.Provider value={{ isLoggedIn: isLoggedIn }}>
+          <Route exact component={BurgerBuilder} path="/" />
+          <Route component={Checkout} path="/checkout" />
+          <Route component={Orders} path="/orders" />
+        </AuthContext.Provider>
       </Switch>
     </Layout>
   );
