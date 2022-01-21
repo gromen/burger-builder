@@ -87,17 +87,11 @@ const BurgerBuilder = ({ history }) => {
     }
   };
 
-  // const disabledNote = { ingredients };
-  //
-  // for (const key in disabledNote) {
-  //   disabledNote[key] = disabledNote[key] <= 0;
-  // }
+  const disabledNote = { ...ingredients };
 
-  // let burger = error ? (
-  //   <p style={{ marginTop: '50px', textAlign: 'center' }}>
-  //     ingredients can&apos;t be loaded
-  //   </p>
-  // ) : <Spinner />;
+  for (const key in disabledNote) {
+    disabledNote[key] = disabledNote[key] <= 0;
+  }
 
   return (
     <Aux>
@@ -117,7 +111,7 @@ const BurgerBuilder = ({ history }) => {
         <BurgerControls
           ingredientAdded={ingredientAdd}
           ingredientRemoved={ingredientRemove}
-          disabled={false}
+          disabled={disabledNote}
           totalPrice={totalPrice}
           canPurchase={!canPurchase}
           order={purchase}
