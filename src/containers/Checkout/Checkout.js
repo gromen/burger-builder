@@ -5,12 +5,12 @@ import { Route } from 'react-router-dom';
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
 import ContactData from './ContactData/ContactData';
 
-function Checkout(props) {
+function Checkout({ location, match, history }) {
   const [ingredients, setIngredients] = useState({});
   const [price, setPrice] = useState(0);
 
   useEffect(() => {
-    const query = new URLSearchParams(props.location.search);
+    const query = new URLSearchParams(location.search);
     const ingredientElements = {};
 
     for (const param of query.entries()) {
@@ -23,11 +23,11 @@ function Checkout(props) {
   }, []);
 
   function onCheckoutCancelledHandler() {
-    props.history.goBack();
+    history.goBack();
   }
 
   function onCheckoutSucceedHandler() {
-    props.history.replace('/checkout/contact-data');
+    history.replace('/checkout/contact-data');
   }
 
   return (
@@ -38,7 +38,7 @@ function Checkout(props) {
         onCheckoutSucceed={onCheckoutSucceedHandler}
       />
       <Route
-        path={`${props.match.path}/contact-data`}
+        path={`${match.path}/contact-data`}
         render={propsContactData => (
           <ContactData
             ingredients={ingredients} price={parseFloat(price)}
@@ -53,5 +53,12 @@ function Checkout(props) {
 export default Checkout;
 
 Checkout.propTypes = {
-  price: PropTypes.number.isRequired,
+  price: PropTypes.number,
+  history: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired
+};
+
+Checkout.defaultProps = {
+  price: 0.00
 };

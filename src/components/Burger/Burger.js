@@ -33,5 +33,9 @@ export default withRouter(Burger);
 
 Burger.propTypes = {
   ingredients: PropTypes.object.isRequired,
-  hasError: PropTypes.bool.isRequired
+  hasError: PropTypes.bool
+};
+
+Burger.defaultProps = {
+  hasError: false
 };

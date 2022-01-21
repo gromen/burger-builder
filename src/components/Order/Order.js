@@ -1,8 +1,9 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Badge, Button, Card } from 'react-bootstrap';
 
 function Order({
-  ingredients, price, orderDate, deliveryMethod
+  ingredients, price, orderDate
 }) {
   const orderIngredients = [];
 
@@ -54,3 +55,9 @@ function Order({
 }
 
 export default Order;
+
+Order.propTypes = {
+  ingredients: PropTypes.object.isRequired,
+  price: PropTypes.string.isRequired,
+  orderDate: PropTypes.string.isRequired,
+};
