@@ -41,10 +41,17 @@ const BurgerControls = ({
   </div>
 );
 
+export default BurgerControls;
+
 BurgerControls.propTypes = {
+  totalPrice: PropTypes.string,
+  canPurchase: PropTypes.bool.isRequired,
+  order: PropTypes.func.isRequired,
   ingredientAdded: PropTypes.func.isRequired,
   ingredientRemoved: PropTypes.func.isRequired,
   disabled: PropTypes.any.isRequired
 };
 
-export default BurgerControls;
+BurgerControls.defaultProps = {
+  totalPrice: null
+};

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 
@@ -7,7 +8,7 @@ import useForm from '../../../hooks/useForm';
 
 import classes from './ContactData.module.css';
 
-function ContactData(props) {
+function ContactData({ ingredients, price, history }) {
   const [isValidated, setIsValidated] = useState(false);
   const [loading, setLoading] = useState(false);
   const { formData, inputChangeHandler } = useForm({
@@ -37,8 +38,8 @@ function ContactData(props) {
           minute: 'numeric',
           hourCycle: 'h23',
         }),
-        ingredients: props.ingredients,
-        price: props.price,
+        ingredients: ingredients,
+        price: price,
         customer: {
           formData,
         },
@@ -49,7 +50,7 @@ function ContactData(props) {
         .then(response => {
           setLoading(false);
           setIsValidated(false);
-          props.history.push('/');
+          history.push('/');
         })
         .catch(error => {
           setLoading(false);
@@ -129,3 +130,9 @@ function ContactData(props) {
 }
 
 export default ContactData;
+
+ContactData.propTypes = {
+  history: PropTypes.object.isRequired,
+  price: PropTypes.number.isRequired,
+  ingredients: PropTypes.object.isRequired
+};
