@@ -11,8 +11,6 @@ const BurgerControl = ({
       more
     </button>
 
-    {// eslint-disable-next-line
-    console.log(disabledNote)}
     <button
       type="button"
       className={classes.Less}

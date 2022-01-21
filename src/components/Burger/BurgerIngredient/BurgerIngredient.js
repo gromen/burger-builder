@@ -4,8 +4,6 @@ import classes from './BurgerIngredient.module.css';
 
 function BurgerIngredient({ type }) {
   let ingredient = null;
-  // eslint-disable-next-line
-	console.log(type);
 
   switch (type) {
     case 'bread-top':

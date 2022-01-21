@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import Aux from '../../hoc/Aux/Aux';
 import axios from '../../axios-orders';
 import Burger from '../../components/Burger/Burger';
@@ -16,7 +17,7 @@ const INGREDIENT_PRICES = {
   bacon: 0.9,
 };
 
-const BurgerBuilder = props => {
+const BurgerBuilder = ({ history }) => {
   const [ingredients, setIngredients] = useState({ });
   const [totalPrice, setTotalPrice] = useState('');
   const [canPurchase, setCanPurchase] = useState(false);
@@ -53,17 +54,13 @@ const BurgerBuilder = props => {
   const ingredientRemove = type => {
     const countOld = ingredients[type];
     const countUpdated = countOld - 1;
-    if (countUpdated < 0) return;
-    const ingredientsUpdated = { ingredients };
-
-    ingredientsUpdated[type] = countUpdated;
-
     const ingredientPrice = INGREDIENT_PRICES[type];
     const newPrice = parseFloat((totalPrice - ingredientPrice).toFixed(2));
 
-    setIngredients(ingredientsUpdated);
-    setTotalPrice(Number(newPrice));
-    updatePurchaseState(ingredientsUpdated);
+    ingredients[type] = countUpdated;
+    setIngredients(prevIngredients => ({ ...prevIngredients, ...ingredients }));
+    setTotalPrice(newPrice);
+    updatePurchaseState(ingredients);
   };
 
   const updatePurchaseState = ingredientsUpdated => {
@@ -83,16 +80,12 @@ const BurgerBuilder = props => {
 
       const queryString = queryParams.join('&');
 
-      props.history.push({
+      history.push({
         pathname: '/checkout',
         search: `?${queryString}`,
       });
     }
   };
-
-  useEffect(() => {
-
-  }, [error]);
 
   // const disabledNote = { ingredients };
   //
@@ -118,7 +111,7 @@ const BurgerBuilder = props => {
           />
 				)}
       </Modal>
-      {ingredients && !loading && <Burger ingredients={ingredients} error={error} />}
+      {ingredients && !loading && <Burger ingredients={ingredients} hasError={error} />}
       {loading && <Spinner />}
       {ingredients && (
         <BurgerControls
@@ -135,3 +128,7 @@ const BurgerBuilder = props => {
 };
 
 export default WithErrorHandler(BurgerBuilder, axios);
+
+BurgerBuilder.propTypes = {
+  history: PropTypes.object.isRequired
+};
