@@ -8,14 +8,7 @@ import Modal from '../../components/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import Spinner from '../../components/Spinner/Spinner';
 import WithErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
-
-const INGREDIENT_PRICES = {
-  meat: 2,
-  salad: 0.5,
-  cheese: 1,
-  onion: 0.4,
-  bacon: 0.9,
-};
+import INGREDIENT_PRICES from '../../utils/ingredientPrices';
 
 const BurgerBuilder = ({ history }) => {
   const [ingredients, setIngredients] = useState({ });

@@ -3,11 +3,13 @@ import Modal from '../../components/Modal/Modal';
 import Aux from '../Aux/Aux';
 
 const withErrorHandler = (WrappedComponent, axios) => class extends Component {
-  state = {
-    error: null,
-    	request: null,
-    	response: null
-  };
+  constructor() {
+    super();
+
+    this.state = {
+      error: null,
+    };
+  }
 
   componentDidMount() {
     this.requestInterceptor = axios.interceptors.request.use(request => {
@@ -39,7 +41,6 @@ const withErrorHandler = (WrappedComponent, axios) => class extends Component {
           {this.state.error ? this.state.error.message : null}
         </Modal>
         <WrappedComponent {...this.props} />
-        ;
       </Aux>
     	);
   }
