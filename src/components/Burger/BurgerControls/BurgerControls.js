@@ -7,7 +7,7 @@ import classesGlobal from '../../../App.module.css';
 const controls = [
   { label: 'Salad', type: 'salad' },
   { label: 'Meat', type: 'meat' },
-  { label: 'Chesse', type: 'chesse' },
+  { label: 'Cheese', type: 'cheese' },
   { label: 'Onion', type: 'onion' },
   { label: 'Bacon', type: 'bacon' },
 ];
@@ -44,14 +44,10 @@ const BurgerControls = ({
 export default BurgerControls;
 
 BurgerControls.propTypes = {
-  totalPrice: PropTypes.string,
+  totalPrice: PropTypes.number.isRequired,
   canPurchase: PropTypes.bool.isRequired,
   order: PropTypes.func.isRequired,
   ingredientAdded: PropTypes.func.isRequired,
   ingredientRemoved: PropTypes.func.isRequired,
   disabled: PropTypes.any.isRequired
-};
-
-BurgerControls.defaultProps = {
-  totalPrice: null
 };

@@ -9,7 +9,7 @@
   },
   "plugins": ["react-hooks"],
   "parser": "@babel/eslint-parser",
-  "extends": ["eslint:recommended", "airbnb"],
+  "extends": ["airbnb", "eslint:recommended"],
   "rules": {
     "react-hooks/rules-of-hooks": "error", // Sprawdza stosowanie zasad hooków
     "react-hooks/exhaustive-deps": "warn", // Sprawdza zależności efektów
