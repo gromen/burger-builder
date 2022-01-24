@@ -1,17 +1,18 @@
-function Input (props) {
-	let inputElement = null
+import React from 'react';
 
-	switch (props.proptype) {
-		case 'text':
-			inputElement = <input id='' name={props.name}
-type='text' />
-			break
+function Input({ name }) {
+  let inputElement = null;
 
-		default:
-			break
-	}
+  switch (name) {
+    case 'text':
+      inputElement = <input name={name} type="text" />;
+      break;
 
-	return inputElement
+    default:
+      break;
+  }
+
+  return inputElement;
 }
 
-export default Input
+export default Input;
