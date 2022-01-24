@@ -3,14 +3,7 @@ import PropTypes from 'prop-types';
 import BurgerControl from './BurgerControl/BurgerControl';
 import classes from './BurgerControl/BurgerControl.module.css';
 import classesGlobal from '../../../App.module.css';
-
-const controls = [
-  { label: 'Salad', type: 'salad' },
-  { label: 'Meat', type: 'meat' },
-  { label: 'Cheese', type: 'cheese' },
-  { label: 'Onion', type: 'onion' },
-  { label: 'Bacon', type: 'bacon' },
-];
+import CONTROLS from '../../../utils/controls';
 
 const BurgerControls = ({
   ingredientAdded, ingredientRemoved, disabled, totalPrice, canPurchase, order
@@ -21,7 +14,7 @@ const BurgerControls = ({
       {' '}
       <strong>{totalPrice}</strong>
     </p>
-    {controls.map(control => (
+    {CONTROLS.map(control => (
       <BurgerControl
         added={() => ingredientAdded(control.type)}
         removed={() => ingredientRemoved(control.type)}
