@@ -12,14 +12,14 @@ import WithErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 const INGREDIENT_PRICES = {
   meat: 2,
   salad: 0.5,
-  chesse: 1,
+  cheese: 1,
   onion: 0.4,
   bacon: 0.9,
 };
 
 const BurgerBuilder = ({ history }) => {
   const [ingredients, setIngredients] = useState({ });
-  const [totalPrice, setTotalPrice] = useState('');
+  const [totalPrice, setTotalPrice] = useState(0);
   const [canPurchase, setCanPurchase] = useState(false);
   const [purchasing, setPurchasing] = useState(false);
   const [loading, setLoading] = useState(false);

@@ -21,7 +21,7 @@ function BurgerIngredient({ type }) {
     case 'meat':
       ingredient = <div className={classes.Meat} />;
       break;
-    case 'chesse':
+    case 'cheese':
       ingredient = <div className={classes.Cheese} />;
       break;
     case 'salad':
