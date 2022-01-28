@@ -7,11 +7,14 @@ import App from './App';
 
 import './custom.scss';
 import './index.css';
+import { AuthContextProvider } from './store/auth-context';
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <AuthContextProvider>
+        <App />
+      </AuthContextProvider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
