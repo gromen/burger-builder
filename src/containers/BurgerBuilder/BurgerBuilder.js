@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import Aux from '../../hoc/Aux/Aux';
+import React, { useState, useEffect, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import axios from '../../axios-orders';
 import Burger from '../../components/Burger/Burger';
 import BurgerControls from '../../components/Burger/BurgerControls/BurgerControls';
@@ -10,13 +9,14 @@ import Spinner from '../../components/Spinner/Spinner';
 import WithErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import INGREDIENT_PRICES from '../../utils/ingredientPrices';
 
-const BurgerBuilder = ({ history }) => {
+const BurgerBuilder = () => {
   const [ingredients, setIngredients] = useState({ });
   const [totalPrice, setTotalPrice] = useState(0);
   const [canPurchase, setCanPurchase] = useState(false);
   const [purchasing, setPurchasing] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const { history } = useHistory();
 
   useEffect(() => {
     setLoading(true);
@@ -87,35 +87,29 @@ const BurgerBuilder = ({ history }) => {
   }
 
   return (
-    <Aux>
+    <>
       <Modal modalClose={purchaseCancel} show={purchasing}>
-        {!loading && (
-          <OrderSummary
-            ingredients={ingredients}
-            purchaseCancelled={purchaseCancel}
-            purchaseProceed={purchaseContinue}
-            price={totalPrice}
-          />
-				)}
+        <OrderSummary
+          ingredients={ingredients}
+          purchaseCancelled={purchaseCancel}
+          purchaseProceed={purchaseContinue}
+          price={totalPrice}
+        />
       </Modal>
       {ingredients && !loading && <Burger ingredients={ingredients} hasError={error} />}
       {loading && <Spinner />}
       {ingredients && (
-        <BurgerControls
-          ingredientAdded={ingredientAdd}
-          ingredientRemoved={ingredientRemove}
-          disabled={disabledNote}
-          totalPrice={totalPrice}
-          canPurchase={!canPurchase}
-          order={purchase}
-        />
-			)}
-    </Aux>
+      <BurgerControls
+        ingredientAdded={ingredientAdd}
+        ingredientRemoved={ingredientRemove}
+        disabled={disabledNote}
+        totalPrice={totalPrice}
+        canPurchase={!canPurchase}
+        order={purchase}
+      />
+      )}
+    </>
   );
 };
 
 export default WithErrorHandler(BurgerBuilder, axios);
-
-BurgerBuilder.propTypes = {
-  history: PropTypes.object.isRequired
-};

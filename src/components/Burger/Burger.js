@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 
 import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 import classes from './Burger.module.css';
@@ -29,7 +28,7 @@ function Burger({ ingredients, hasError }) {
   );
 }
 
-export default withRouter(Burger);
+export default Burger;
 
 Burger.propTypes = {
   ingredients: PropTypes.object.isRequired,
