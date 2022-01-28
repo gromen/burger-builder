@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import {
   Button, Col, Container, Form, Row
 } from 'react-bootstrap';
@@ -16,6 +16,12 @@ const Login = () => {
   };
 
   const { isLoggedIn } = useContext(AuthContext);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      history.push('/');
+    }
+  }, [history, isLoggedIn]);
 
   return (
     <>
