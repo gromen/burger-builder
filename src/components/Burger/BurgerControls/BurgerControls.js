@@ -6,7 +6,7 @@ import classesGlobal from '../../../App.module.css';
 import CONTROLS from '../../../utils/controls';
 
 const BurgerControls = ({
-  ingredientAdded, ingredientRemoved, disabled, totalPrice, canPurchase, order
+  ingredientAdded, ingredientRemoved, disabled, totalPrice, canPurchase, onClickOrder
 }) => (
   <div className={classesGlobal.TextCenter}>
     <p className={classesGlobal.TextCenter}>
@@ -27,7 +27,7 @@ const BurgerControls = ({
     <button
       type="button"
       className={classes.OrderButton} disabled={canPurchase}
-      onClick={order}
+      onClick={onClickOrder}
     >
       Order burger
     </button>
@@ -39,7 +39,7 @@ export default BurgerControls;
 BurgerControls.propTypes = {
   totalPrice: PropTypes.number.isRequired,
   canPurchase: PropTypes.bool.isRequired,
-  order: PropTypes.func.isRequired,
+  onClickOrder: PropTypes.func.isRequired,
   ingredientAdded: PropTypes.func.isRequired,
   ingredientRemoved: PropTypes.func.isRequired,
   disabled: PropTypes.any.isRequired
