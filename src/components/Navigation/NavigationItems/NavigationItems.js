@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
 import NavigationItem from './NavigationItem/NavigationItem';
 
 import classes from './NavigationItems.module.css';
@@ -13,6 +12,9 @@ const NavigationItems = () => {
       <NavigationItem exact link="/">BurgerBuilder</NavigationItem>
       <NavigationItem link="/orders/">Orders</NavigationItem>
       <NavigationItem link="/checkout/">Checkout</NavigationItem>
+      {/*
+      TODO unify Logout button styles
+      */}
       <button type="button" onClick={onLogout}>Logout</button>
     </ul>
   );
