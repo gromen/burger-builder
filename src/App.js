@@ -1,7 +1,7 @@
 import './App.module.css';
 import { Route, Switch } from 'react-router-dom';
-import React, { useContext } from 'react';
-import Login from './components/Login/Login';
+import React from 'react';
+import LoginPage from './components/Login/LoginPage';
 import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
 import Checkout from './containers/Checkout/Checkout';
 import Layout from './hoc/Layout/Layout';
@@ -12,7 +12,7 @@ function App() {
   return (
     <Layout>
       <Switch>
-        <Route component={Login} path="/login" />
+        <Route component={LoginPage} path="/login" />
         <Route component={Orders} path="/orders" />
         {/* eslint-disable-next-line react/no-children-prop */}
         <PrivateRoute path="/" children={<BurgerBuilder />} redirectTo="/login" />
