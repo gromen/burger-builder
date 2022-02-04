@@ -1,23 +1,18 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import NavigationItem from './NavigationItem/NavigationItem';
 
 import classes from './NavigationItems.module.css';
-import AuthContext from '../../../store/auth-context';
 
-const NavigationItems = () => {
-  const { onLogout } = useContext(AuthContext);
+const NavigationItems = () => (
+  <ul className={classes.NavigationItems}>
+    <NavigationItem exact link="/">BurgerBuilder</NavigationItem>
+    <NavigationItem link="/orders/">Orders</NavigationItem>
+    <NavigationItem link="/checkout/">Checkout</NavigationItem>
+    <NavigationItem link="/login/">Log in</NavigationItem>
+    <NavigationItem link="/userProfile/">UserProfile</NavigationItem>
+    <NavigationItem link="/logout/">Log out</NavigationItem>
 
-  return (
-    <ul className={classes.NavigationItems}>
-      <NavigationItem exact link="/">BurgerBuilder</NavigationItem>
-      <NavigationItem link="/orders/">Orders</NavigationItem>
-      <NavigationItem link="/checkout/">Checkout</NavigationItem>
-      {/*
-      TODO unify Logout button styles
-      */}
-      <button type="button" onClick={onLogout}>Logout</button>
-    </ul>
-  );
-};
+  </ul>
+);
 
 export default NavigationItems;

@@ -73,7 +73,7 @@ const BurgerBuilder = () => {
 
       const queryString = queryParams.join('&');
 
-      // TODO history is undefinded - to fix
+      // TODO history is undefined - to fix
       // history.push({
       //   pathname: '/checkout',
       //   search: `?${queryString}`,
