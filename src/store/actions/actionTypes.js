@@ -1,0 +1,3 @@
+export const ON_SUBMIT = 'ON_SUBMIT';
+export const ON_SUBMIT_SUCCESS = 'ON_SUBMIT_SUCCESS';
+export const ON_SUBMIT_ERROR = 'ON_SUBMIT_ERROR';

@@ -1,18 +1,11 @@
-import React, { useContext } from 'react';
-import AuthContext from '../../store/auth-context';
+import React from 'react';
 import NavigationItems from './NavigationItems/NavigationItems';
 
 function Navigation() {
-  const { isLoggedIn } = useContext(AuthContext);
-
   return (
-    <>
-      {isLoggedIn && (
-        <nav>
-          <NavigationItems />
-        </nav>
-      )}
-    </>
+    <nav>
+      <NavigationItems />
+    </nav>
   );
 }
 
