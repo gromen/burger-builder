@@ -11,6 +11,7 @@ const NavigationItems = () => {
 
   const onLogout = () => {
     dispatch({ type: ON_LOGOUT_REQUEST });
+    localStorage.removeItem('isLoggedIn');
   };
 
   return (
