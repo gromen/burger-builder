@@ -13,7 +13,7 @@ function App() {
       <Switch>
         <Route component={LoginPage} path="/login" />
         <Route component={Orders} path="/orders" />
-        <Route component={BurgerBuilder} path="/" />
+        <Route exact component={BurgerBuilder} path="/" />
         <Route component={Checkout} path="/checkout" />
       </Switch>
     </Layout>
