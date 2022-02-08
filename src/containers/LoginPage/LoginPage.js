@@ -52,6 +52,7 @@ const LoginPage = () => {
     }).then(data => {
       dispatch({ type: ON_LOGIN_SUCCESS, payload: data.idToken });
       history.push('/');
+      localStorage.setItem('isLoggedIn', 'true');
     }).catch(error => console.error(error.message));
   };
 
