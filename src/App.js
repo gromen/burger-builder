@@ -1,20 +1,32 @@
 import './App.module.css';
-import { Route, Switch } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import React from 'react';
-import LoginPage from './components/forms/Login/LoginPage';
+import LoginPage from './containers/LoginPage/LoginPage';
 import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
 import Checkout from './containers/Checkout/Checkout';
+import UserProfilePage from './containers/UserProfilePage/UserProfilePage';
 import Layout from './hoc/Layout/Layout';
 import Orders from './containers/Orders/Orders';
 
 function App() {
+  const isLoggedIn = useSelector(state => state.authReducer.isLoggedIn);
+
   return (
     <Layout>
       <Switch>
-        <Route component={LoginPage} path="/login" />
-        <Route component={Orders} path="/orders" />
-        <Route exact component={BurgerBuilder} path="/" />
-        <Route component={Checkout} path="/checkout" />
+        {!isLoggedIn && <Route component={LoginPage} path="/login" />}
+        {isLoggedIn && (
+        <>
+          <Route component={UserProfilePage} path="/userProfile" />
+          <Route component={Orders} path="/orders" />
+          <Route component={Checkout} path="/checkout" />
+          <Route exact component={BurgerBuilder} path="/" />
+        </>
+				)}
+        <Route path="*">
+          <Redirect to="/login" />
+        </Route>
       </Switch>
     </Layout>
   );

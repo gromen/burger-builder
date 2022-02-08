@@ -3,9 +3,11 @@ import {
   Button, Col, Container, Form, Row, Spinner,
 } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { ON_LOGIN_SUCCESS } from '../../../store/actions/actionTypes';
+import { useHistory } from 'react-router-dom';
+import { ON_LOGIN_SUCCESS } from '../../store/actions/actionTypes';
 
 const LoginPage = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const emailFieldRef = useRef();
   const passwordFieldRef = useRef();
@@ -48,9 +50,8 @@ const LoginPage = () => {
         });
       }
     }).then(data => {
-      // eslint-disable-next-line
-			console.log({ data });
       dispatch({ type: ON_LOGIN_SUCCESS, payload: data.idToken });
+      history.push('/');
     }).catch(error => console.error(error.message));
   };
 
