@@ -1,3 +1,2 @@
-export const ON_SUBMIT = 'ON_SUBMIT';
-export const ON_SUBMIT_SUCCESS = 'ON_SUBMIT_SUCCESS';
-export const ON_SUBMIT_ERROR = 'ON_SUBMIT_ERROR';
+export const ON_LOGIN_SUCCESS = 'ON_LOGIN_SUCCESS';
+export const ON_LOGOUT_REQUEST = 'ON_LOGOUT_REQUEST';
