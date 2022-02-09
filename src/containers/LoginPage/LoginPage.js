@@ -5,6 +5,7 @@ import {
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { ON_LOGIN_SUCCESS } from '../../store/actions/actionTypes';
+import { FIREBASE_SIGN_IN_WITH_PASSWORD, FIREBASE_SIGN_UP } from '../../utils/endpoints';
 
 const LoginPage = () => {
   const history = useHistory();
@@ -23,9 +24,7 @@ const LoginPage = () => {
 
     setIsLoading(true);
 
-    const url = isLogin
-      ? 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBOxa84J4FyopVZD7Om6lFIWDcm3oRi-ek'
-      : 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBOxa84J4FyopVZD7Om6lFIWDcm3oRi-ek';
+    const url = isLogin ? FIREBASE_SIGN_IN_WITH_PASSWORD : FIREBASE_SIGN_UP;
 
     fetch(url, {
       method: 'POST',
