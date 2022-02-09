@@ -4,6 +4,7 @@ import {
 } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { FIREBASE_UPDATE_PASSWORD } from '../../utils/endpoints';
 
 const UserProfilePage = () => {
   const idToken = useSelector(state => state.authReducer.token);
@@ -16,7 +17,7 @@ const UserProfilePage = () => {
     event.preventDefault();
     enteredNewPassword = passwordFieldRef?.current?.value;
 
-    fetch('https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyBOxa84J4FyopVZD7Om6lFIWDcm3oRi-ek', {
+    fetch(FIREBASE_UPDATE_PASSWORD, {
       method: 'POST',
       body: JSON.stringify({
         idToken,

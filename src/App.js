@@ -12,13 +12,12 @@ import { ON_LOGIN_SUCCESS } from './store/actions/actionTypes';
 
 function App() {
   const isLoggedIn = useSelector(state => state.authReducer.isLoggedIn);
-  const token = useSelector(state => state.authReducer.token);
 
   const isLoggedInInfo = localStorage.getItem('isLoggedIn');
   const dispatch = useDispatch();
 
   if (isLoggedInInfo === 'true') {
-    dispatch({ type: ON_LOGIN_SUCCESS, token });
+    dispatch({ type: ON_LOGIN_SUCCESS });
   }
 
   return (
