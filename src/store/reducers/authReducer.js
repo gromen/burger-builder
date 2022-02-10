@@ -1,23 +1,26 @@
-import { ON_LOGIN_SUCCESS, ON_LOGOUT_REQUEST } from '../actions/actionTypes';
+import { authActionTypes } from '../actions/auth.actionTypes';
 
 const initialState = {
   isLoggedIn: false,
-  token: ''
+  idToken: '',
+  expiresIn: ''
 };
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ON_LOGIN_SUCCESS:
+    case authActionTypes.ON_LOGIN_SUCCESS:
       return {
         ...state,
         isLoggedIn: true,
-        token: action.payload
+        idToken: action.idToken,
+        expiresIn: action.expiresIn
       };
-    case ON_LOGOUT_REQUEST:
+    case authActionTypes.ON_LOGOUT_REQUEST:
       return {
         ...state,
         isLoggedIn: false,
-        token: ''
+        idToken: '',
+        expiresIn: ''
       };
     default:
       return state;
