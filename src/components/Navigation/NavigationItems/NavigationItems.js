@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ON_LOGOUT_REQUEST } from '../../../store/actions/actionTypes';
+import { logout } from '../../../store/actions/auth.actions';
 import NavigationItem from './NavigationItem/NavigationItem';
 
 import classes from './NavigationItems.module.css';
@@ -9,10 +9,7 @@ const NavigationItems = () => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(state => state.authReducer.isLoggedIn);
 
-  const onLogout = () => {
-    dispatch({ type: ON_LOGOUT_REQUEST });
-    localStorage.removeItem('isLoggedIn');
-  };
+  const onLogout = () => dispatch(logout());
 
   return (
     <ul className={classes.NavigationItems}>

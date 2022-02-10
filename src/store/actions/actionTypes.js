@@ -1,2 +1,0 @@
-export const ON_LOGIN_SUCCESS = 'ON_LOGIN_SUCCESS';
-export const ON_LOGOUT_REQUEST = 'ON_LOGOUT_REQUEST';

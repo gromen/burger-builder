@@ -8,16 +8,16 @@ import Checkout from './containers/Checkout/Checkout';
 import UserProfilePage from './containers/UserProfilePage/UserProfilePage';
 import Layout from './hoc/Layout/Layout';
 import Orders from './containers/Orders/Orders';
-import { ON_LOGIN_SUCCESS } from './store/actions/actionTypes';
+import { login } from './store/actions/auth.actions';
 
 function App() {
   const isLoggedIn = useSelector(state => state.authReducer.isLoggedIn);
 
-  const isLoggedInInfo = localStorage.getItem('isLoggedIn');
+  const tokenInfo = localStorage.getItem('token');
   const dispatch = useDispatch();
 
-  if (isLoggedInInfo === 'true') {
-    dispatch({ type: ON_LOGIN_SUCCESS });
+  if (tokenInfo) {
+    dispatch(login());
   }
 
   return (

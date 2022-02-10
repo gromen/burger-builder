@@ -4,7 +4,7 @@ import {
 } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { ON_LOGIN_SUCCESS } from '../../store/actions/actionTypes';
+import { login, runLogoutTimer } from '../../store/actions/auth.actions';
 import { FIREBASE_SIGN_IN_WITH_PASSWORD, FIREBASE_SIGN_UP } from '../../utils/endpoints';
 
 const LoginPage = () => {
@@ -49,9 +49,13 @@ const LoginPage = () => {
         });
       }
     }).then(data => {
-      dispatch({ type: ON_LOGIN_SUCCESS, payload: data.idToken });
+      const { idToken, expiresIn } = data;
+
+      const timeToLogout = new Date(new Date().getTime() + (+expiresIn * 1000));
+
+      dispatch(login(idToken));
+      runLogoutTimer(dispatch, timeToLogout);
       history.push('/');
-      localStorage.setItem('isLoggedIn', 'true');
     }).catch(error => console.error(error.message));
   };
 
