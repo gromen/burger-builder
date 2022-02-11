@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   Button, Col, Container, Form, Row, Spinner,
 } from 'react-bootstrap';
@@ -16,12 +16,8 @@ const LoginPage = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
-  let enteredEmail = emailFieldRef.current;
-  let enteredPassword = passwordFieldRef.current;
-
   const onSubmit = event => {
     event.preventDefault();
-
     setIsLoading(true);
 
     const url = isLogin ? FIREBASE_SIGN_IN_WITH_PASSWORD : FIREBASE_SIGN_UP;
@@ -29,8 +25,8 @@ const LoginPage = () => {
     fetch(url, {
       method: 'POST',
       body: JSON.stringify({
-        email: enteredEmail,
-        password: enteredPassword,
+        email: emailFieldRef.current.value,
+        password: passwordFieldRef.current.value,
         returnSecureToken: true
       }),
       headers: {
@@ -58,11 +54,6 @@ const LoginPage = () => {
       history.push('/');
     }).catch(error => console.error(error.message));
   };
-
-  useEffect(() => {
-    enteredEmail = emailFieldRef?.current?.value;
-    enteredPassword = passwordFieldRef?.current?.value;
-  }, [onSubmit]);
 
   const onClickSwitchAuthMethod = () => setIsLogin(prevState => !prevState);
 
