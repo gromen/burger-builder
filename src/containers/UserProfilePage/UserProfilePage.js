@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom';
 import { FIREBASE_UPDATE_PASSWORD } from '../../utils/endpoints';
 
 const UserProfilePage = () => {
-  const idToken = useSelector(state => state.authReducer.token);
+  const idToken = useSelector(state => state.authReducer.idToken);
   const passwordFieldRef = useRef();
   const history = useHistory();
 
