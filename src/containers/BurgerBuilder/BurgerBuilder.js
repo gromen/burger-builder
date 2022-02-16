@@ -18,7 +18,7 @@ const BurgerBuilder = () => {
   const [purchasing, setPurchasing] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const { history } = useHistory();
+  const history = useHistory();
 
   useEffect(() => {
     setLoading(true);
@@ -92,11 +92,10 @@ const BurgerBuilder = () => {
 
       const queryString = queryParams.join('&');
 
-      // TODO history is undefined - to fix
-      // history.push({
-      //   pathname: '/checkout',
-      //   search: `?${queryString}`,
-      // });
+      history.push({
+        pathname: '/checkout',
+        search: `?${queryString}`,
+      });
     }
   };
 

@@ -23,18 +23,28 @@ function App() {
   return (
     <Layout>
       <Switch>
-        {!isLoggedIn && <Route component={LoginPage} path="/login" />}
+        {!isLoggedIn && (
+        <Route path="/login">
+          <LoginPage />
+        </Route>
+				)}
         {isLoggedIn && (
         <>
-          <Route component={UserProfilePage} path="/userProfile" />
-          <Route component={Orders} path="/orders" />
-          <Route component={Checkout} path="/checkout" />
-          <Route exact component={BurgerBuilder} path="/" />
+          <Route path="/userProfile">
+            <UserProfilePage />
+          </Route>
+          <Route path="/orders">
+            <Orders />
+          </Route>
+          <Route path="/checkout">
+            <Checkout />
+          </Route>
+          <Route exact path="/">
+            <BurgerBuilder />
+          </Route>
         </>
 				)}
-        <Route path="*">
-          <Redirect to="/login" />
-        </Route>
+        <Route path="*" render={() => <Redirect to="/login" />} />
       </Switch>
     </Layout>
   );

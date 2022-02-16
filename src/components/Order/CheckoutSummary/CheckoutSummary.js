@@ -9,12 +9,6 @@ function checkoutSummary({ ingredients, onCheckoutCancelled, onCheckoutSucceed }
     <div className={classes.CheckoutSummary}>
       <h1>Checkout Summary</h1>
       <Burger ingredients={ingredients} />
-      <Button type="button" btnType="Danger" clicked={onCheckoutCancelled}>
-        Cancel
-      </Button>
-      <Button btnType="Success" clicked={onCheckoutSucceed}>
-        Continue
-      </Button>
     </div>
   );
 }

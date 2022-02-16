@@ -1,13 +1,15 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, useHistory, useLocation } from 'react-router-dom';
 
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
 import ContactData from './ContactData/ContactData';
 
-function Checkout({ location, match, history }) {
+function Checkout() {
   const [ingredients, setIngredients] = useState({});
   const [price, setPrice] = useState(0);
+  const location = useLocation();
+  const history = useHistory();
 
   useEffect(() => {
     const query = new URLSearchParams(location.search);
@@ -32,32 +34,17 @@ function Checkout({ location, match, history }) {
 
   return (
     <div>
-      <CheckoutSummary
+      <CheckoutSummary ingredients={ingredients} />
+      <ContactData
         ingredients={ingredients}
+        price={parseFloat(price)}
         onCheckoutCancelled={onCheckoutCancelledHandler}
-        onCheckoutSucceed={onCheckoutSucceedHandler}
-      />
-      <Route
-        path={`${match.path}/contact-data`}
-        render={propsContactData => (
-          <ContactData
-            ingredients={ingredients} price={parseFloat(price)}
-            {...propsContactData}
-          />
-)}
       />
     </div>
   );
 }
 
 export default Checkout;
-
-Checkout.propTypes = {
-  price: PropTypes.number,
-  history: PropTypes.object.isRequired,
-  match: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired
-};
 
 Checkout.defaultProps = {
   price: 0.00
