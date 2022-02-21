@@ -23,6 +23,14 @@ function ContactData({ ingredients, price, onCheckoutCancelled }) {
 
   const handleSubmit = event => {
     const form = event.target;
+    const dateFormatted = new Date().toLocaleString('pl-PL', {
+      year: 'numeric',
+      month: 'numeric',
+      day: '2-digit',
+      hour: 'numeric',
+      minute: 'numeric',
+      hourCycle: 'h23',
+    });
 
     if (!form.checkValidity()) {
       event.preventDefault();
@@ -30,16 +38,8 @@ function ContactData({ ingredients, price, onCheckoutCancelled }) {
     } else {
       setLoading(true);
 
-      const orderDate = new Date();
       const order = {
-        orderDate: orderDate.toLocaleString('pl-PL', {
-          year: 'numeric',
-          month: 'numeric',
-          day: '2-digit',
-          hour: 'numeric',
-          minute: 'numeric',
-          hourCycle: 'h23',
-        }),
+        orderDate: dateFormatted,
         ingredients: ingredients,
         price: price,
         customer: { formData },
@@ -119,7 +119,13 @@ function ContactData({ ingredients, price, onCheckoutCancelled }) {
           />
         </Form.Group>
         <div className="d-lg-flex">
-          <Button className="mr-lg-4 mb-2 mb-lg-0 w-100" type="button" variant="secondary" onClick={onCheckoutCancelled} size="lg">
+          <Button
+            className="mr-lg-4 mb-2 mb-lg-0 w-100"
+            type="button"
+            variant="secondary"
+            onClick={onCheckoutCancelled}
+            size="lg"
+          >
             Cancel
           </Button>
           <Button className="w-100" type="submit" variant="primary" size="lg">

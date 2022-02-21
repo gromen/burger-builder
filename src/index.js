@@ -3,12 +3,14 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import reportWebVitals from './reportWebVitals';
-import store from './store';
+import configureStore from './store';
 
 import App from './App';
 
 import './custom.scss';
 import './index.css';
+
+const store = configureStore(window.REDUX_INITIAL_DATA);
 
 ReactDOM.render(
   <React.StrictMode>

@@ -4,7 +4,7 @@ import {
 } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { login, runLogoutTimer } from '../../store/actions/auth.actions';
+import { userAuthOperations } from '../../store/ducks/user';
 import { FIREBASE_SIGN_IN_WITH_PASSWORD, FIREBASE_SIGN_UP } from '../../utils/endpoints';
 
 const LoginPage = () => {
@@ -49,8 +49,8 @@ const LoginPage = () => {
 
       const timeToLogout = new Date(new Date().getTime() + (+expiresIn * 1000));
 
-      dispatch(login(idToken));
-      runLogoutTimer(dispatch, timeToLogout);
+      dispatch(userAuthOperations.onLoginSuccess(idToken));
+      userAuthOperations.runLogoutTimer(dispatch, timeToLogout);
       history.push('/');
     }).catch(error => console.error(error.message));
   };

@@ -1,4 +1,0 @@
-export const authActionTypes = {
-  ON_LOGIN_SUCCESS: 'ON_LOGIN_SUCCESS',
-  ON_LOGOUT_REQUEST: 'ON_LOGOUT_REQUEST',
-};
