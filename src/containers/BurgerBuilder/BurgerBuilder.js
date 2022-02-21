@@ -1,6 +1,5 @@
-import React, {
-  useState, useEffect, useReducer
-} from 'react';
+import React, { useState, useEffect, } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import axios from '../../axios-orders';
 import Burger from '../../components/Burger/Burger';
@@ -9,12 +8,15 @@ import Modal from '../../components/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import Spinner from '../../components/Spinner/Spinner';
 import WithErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
+import { burgerOperations } from '../../store/ducks/burger';
 import INGREDIENT_PRICES from '../../utils/ingredientPrices';
-import { burgerBuilderReducer, initialState } from '../../store/reducers/burgerBuilder.reducer';
-import { burgerBuilderActionTypes } from '../../store/actions/burgerBuilder.actionTypes';
 
 const BurgerBuilder = () => {
-  const [state, dispatch] = useReducer(burgerBuilderReducer, initialState);
+  const dispatch = useDispatch();
+  const ingredients = useSelector(state => state.burgerState.burger.ingredients);
+  const totalPrice = useSelector(state => state.burgerState.burger.totalPrice);
+  const canPurchase = useSelector(state => state.burgerState.burger.canPurchase);
+
   const [purchasing, setPurchasing] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -25,58 +27,38 @@ const BurgerBuilder = () => {
 
     axios.get('/ingredients.json')
       .then(response => {
-        dispatch({
-          type: burgerBuilderActionTypes.SET_INGREDIENTS,
-          payload: response.data
-        });
+        dispatch(burgerOperations.setIngredients(response.data));
         setLoading(false);
       })
       .catch(errorData => { setError(true); });
   }, []);
 
   const ingredientAdd = type => {
-    const countOld = state.ingredients[type];
+    const countOld = ingredients[type];
     const countUpdated = countOld + 1;
-    const ingredientsUpdated = { ...state.ingredients, };
+    const ingredientsUpdated = { ...ingredients, };
 
     ingredientsUpdated[type] = countUpdated;
 
     const ingredientPrice = INGREDIENT_PRICES[type];
-    const newPrice = parseFloat(ingredientPrice + state.totalPrice).toFixed(2);
+    const newPrice = parseFloat(ingredientPrice + totalPrice).toFixed(2);
 
-    dispatch({
-      type: burgerBuilderActionTypes.SET_INGREDIENTS,
-      payload: ingredientsUpdated
-    });
-    dispatch({
-      type: burgerBuilderActionTypes.SET_TOTAL_PRICE,
-      payload: Number(newPrice)
-    });
-    dispatch({
-      type: burgerBuilderActionTypes.UPDATE_PURCHASE,
-      payload: ingredientsUpdated
-    });
+    dispatch(burgerOperations.setIngredients(ingredientsUpdated));
+    dispatch(burgerOperations.setTotalPrice(Number(newPrice)));
+    dispatch(burgerOperations.updatePurchase(ingredientsUpdated));
   };
 
   const ingredientRemove = type => {
-    const countOld = state.ingredients[type];
+    const countOld = ingredients[type];
     const countUpdated = countOld - 1;
     const ingredientPrice = INGREDIENT_PRICES[type];
-    const newPrice = parseFloat((state.totalPrice - ingredientPrice).toFixed(2));
+    const newPrice = parseFloat((totalPrice - ingredientPrice).toFixed(2));
 
-    state.ingredients[type] = countUpdated;
-    dispatch({
-      type: burgerBuilderActionTypes.SET_INGREDIENTS,
-      payload: state.ingredients
-    });
-    dispatch({
-      type: burgerBuilderActionTypes.SET_TOTAL_PRICE,
-      payload: newPrice
-    });
-    dispatch({
-      type: burgerBuilderActionTypes.UPDATE_PURCHASE,
-      payload: state.ingredients
-    });
+    ingredients[type] = countUpdated;
+
+    dispatch(burgerOperations.setIngredients(ingredients));
+    dispatch(burgerOperations.setTotalPrice(newPrice));
+    dispatch(burgerOperations.updatePurchase(ingredients));
   };
 
   const purchase = () => setPurchasing(true);
@@ -86,9 +68,9 @@ const BurgerBuilder = () => {
   const purchaseContinue = () => {
     const queryParams = [];
 
-    for (const i in state.ingredients) {
-      queryParams.push(`${encodeURIComponent(i)}=${encodeURIComponent(state.ingredients[i])}`);
-      queryParams.push(`price=${state.totalPrice}`);
+    for (const i in ingredients) {
+      queryParams.push(`${encodeURIComponent(i)}=${encodeURIComponent(ingredients[i])}`);
+      queryParams.push(`price=${totalPrice}`);
 
       const queryString = queryParams.join('&');
 
@@ -99,7 +81,7 @@ const BurgerBuilder = () => {
     }
   };
 
-  const disabledNote = { ...state.ingredients };
+  const disabledNote = { ...ingredients };
 
   for (const key in disabledNote) {
     disabledNote[key] = disabledNote[key] <= 0;
@@ -109,21 +91,21 @@ const BurgerBuilder = () => {
     <>
       <Modal modalClose={purchaseCancel} show={purchasing}>
         <OrderSummary
-          ingredients={state.ingredients}
+          ingredients={ingredients}
           purchaseCancelled={purchaseCancel}
           purchaseProceed={purchaseContinue}
-          price={state.totalPrice}
+          price={totalPrice}
         />
       </Modal>
-      {state.ingredients && !loading && <Burger ingredients={state.ingredients} hasError={error} />}
+      {ingredients && !loading && <Burger ingredients={ingredients} hasError={error} />}
       {loading && <Spinner />}
-      {state.ingredients && (
+      {ingredients && (
       <BurgerControls
         ingredientAdded={ingredientAdd}
         ingredientRemoved={ingredientRemove}
         disabled={disabledNote}
-        totalPrice={state.totalPrice}
-        canPurchase={!state.canPurchase}
+        totalPrice={totalPrice}
+        canPurchase={!canPurchase}
         onClickOrder={purchase}
       />
       )}
