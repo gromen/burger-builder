@@ -8,16 +8,17 @@ import Checkout from './containers/Checkout/Checkout';
 import UserProfilePage from './containers/UserProfilePage/UserProfilePage';
 import Layout from './hoc/Layout/Layout';
 import Orders from './containers/Orders/Orders';
-import { login } from './store/actions/auth.actions';
+import { userAuthOperations } from './store/ducks/user';
+import { login } from './store/ducks/user/actions';
 
 function App() {
-  const isLoggedIn = useSelector(state => state.authReducer.isLoggedIn);
+  const isLoggedIn = useSelector(state => state.userAuthState.userAuth.isLoggedIn);
 
   const tokenInfo = localStorage.getItem('token');
   const dispatch = useDispatch();
 
   if (tokenInfo) {
-    dispatch(login());
+    dispatch(userAuthOperations.onLoginSuccess());
   }
 
   return (

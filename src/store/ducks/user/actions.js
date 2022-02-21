@@ -1,4 +1,4 @@
-import { authActionTypes } from './auth.actionTypes';
+import types from './types';
 
 let logoutTimer;
 
@@ -23,7 +23,7 @@ export const logout = () => {
   }
 
   return {
-    type: authActionTypes.ON_LOGOUT_REQUEST,
+    type: types.ON_LOGOUT_REQUEST,
   };
 };
 
@@ -35,6 +35,12 @@ export const login = idToken => {
   }
 
   return {
-    type: authActionTypes.ON_LOGIN_SUCCESS,
+    type: types.ON_LOGIN_SUCCESS,
   };
+};
+
+export default {
+  login,
+  logout,
+  runLogoutTimer
 };
