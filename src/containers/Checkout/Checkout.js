@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import { Route, useHistory, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
 import ContactData from './ContactData/ContactData';
@@ -9,7 +9,7 @@ function Checkout() {
   const [ingredients, setIngredients] = useState({});
   const [price, setPrice] = useState(0);
   const location = useLocation();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const query = new URLSearchParams(location.search);
@@ -25,11 +25,11 @@ function Checkout() {
   }, []);
 
   function onCheckoutCancelledHandler() {
-    history.goBack();
+    navigate(-1);
   }
 
   function onCheckoutSucceedHandler() {
-    history.replace('/checkout/contact-data');
+    navigate('/checkout/contact-data', { replace: true });
   }
 
   return (
