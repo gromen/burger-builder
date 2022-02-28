@@ -1,13 +1,14 @@
-import classes from "./Header.module.css";
-import Navigation from "../Navigation";
-import Logo from "../../Logo/Logo";
+import React from 'react';
+import classes from './Header.module.css';
+import Navigation from '../Navigation';
+import Logo from '../../Logo/Logo';
 
 function toolbar({ clickedLogo, openedSideDrawer }) {
   return (
     <header className={classes.Header}>
-      <div className={classes.ButtonToggler} onClick={clickedLogo}>
+      <button type="button" className={classes.ButtonToggler} onClick={clickedLogo}>
         Menu
-      </div>
+      </button>
       <div className={classes.Logo}>
         <Logo openedSideDrawer={openedSideDrawer} />
       </div>

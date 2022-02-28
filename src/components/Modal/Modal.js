@@ -1,17 +1,18 @@
-import React from "react";
-import classes from "./Modal.module.css";
-import Backdrop from "../Backdrop/Backdrop";
-import Aux from "../../hoc/Aux/Aux";
+import PropTypes from 'prop-types';
+import React from 'react';
+import classes from './Modal.module.css';
+import Backdrop from '../Backdrop/Backdrop';
+import Aux from '../../hoc/Aux/Aux';
 
 function Modal({ show, modalClose, children }) {
   return (
     <Aux>
-      <Backdrop show={show} clicked={modalClose} />
+      <Backdrop clicked={modalClose} show={show} />
       <div
         className={classes.Modal}
         style={{
-          transform: show ? "translateY(0)" : "translateY(-1000px)",
-        }}
+					transform: show ? 'translateY(0)' : 'translateY(-1000px)',
+				}}
       >
         {children}
       </div>
@@ -20,3 +21,14 @@ function Modal({ show, modalClose, children }) {
 }
 
 export default React.memo(Modal);
+
+Modal.propTypes = {
+  show: PropTypes.bool,
+  modalClose: PropTypes.func.isRequired,
+  children: PropTypes.node
+};
+
+Modal.defaultProps = {
+  show: null,
+  children: null
+};
