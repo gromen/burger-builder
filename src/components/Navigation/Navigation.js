@@ -1,7 +1,7 @@
 import React from 'react';
 import NavigationItems from './NavigationItems/NavigationItems';
 
-function navigation() {
+function Navigation() {
   return (
     <nav>
       <NavigationItems />
@@ -9,4 +9,4 @@ function navigation() {
   );
 }
 
-export default navigation;
+export default Navigation;

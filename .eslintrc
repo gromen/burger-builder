@@ -10,6 +10,9 @@
   "plugins": ["react-hooks"],
   "parser": "@babel/eslint-parser",
   "extends": ["airbnb", "eslint:recommended"],
+  "env": {
+    "browser": true
+  },
   "rules": {
     "react-hooks/rules-of-hooks": "error", // Sprawdza stosowanie zasad hooków
     "react-hooks/exhaustive-deps": "warn", // Sprawdza zależności efektów
@@ -21,6 +24,7 @@
         "ignoredNodes": ["JSXElement *"]
       }
     ],
+    "import/prefer-default-export": 0,
     "linebreak-style": 0,
     "no-mixed-spaces-and-tabs": "off",
     "comma-dangle": 0,

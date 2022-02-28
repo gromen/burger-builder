@@ -1,23 +1,51 @@
 import './App.module.css';
-import { Route, Switch } from 'react-router-dom';
-import React, { useState } from 'react';
-import AuthContext from './store/auth-context';
+import { useDispatch, useSelector } from 'react-redux';
+import { Redirect, Route, Switch } from 'react-router-dom';
+import React from 'react';
+import LoginPage from './containers/LoginPage/LoginPage';
 import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
 import Checkout from './containers/Checkout/Checkout';
+import UserProfilePage from './containers/UserProfilePage/UserProfilePage';
 import Layout from './hoc/Layout/Layout';
 import Orders from './containers/Orders/Orders';
+import { userAuthOperations } from './store/ducks/user';
+import { login } from './store/ducks/user/actions';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const isLoggedIn = useSelector(state => state.userAuthState.userAuth.isLoggedIn);
+
+  const tokenInfo = localStorage.getItem('token');
+  const dispatch = useDispatch();
+
+  if (tokenInfo) {
+    dispatch(userAuthOperations.onLoginSuccess());
+  }
 
   return (
     <Layout>
       <Switch>
-        <AuthContext.Provider value={{ isLoggedIn: isLoggedIn }}>
-          <Route exact component={BurgerBuilder} path="/" />
-          <Route component={Checkout} path="/checkout" />
-          <Route component={Orders} path="/orders" />
-        </AuthContext.Provider>
+        {!isLoggedIn && (
+        <Route path="/login">
+          <LoginPage />
+        </Route>
+				)}
+        {isLoggedIn && (
+        <>
+          <Route path="/userProfile">
+            <UserProfilePage />
+          </Route>
+          <Route path="/orders">
+            <Orders />
+          </Route>
+          <Route path="/checkout">
+            <Checkout />
+          </Route>
+          <Route exact path="/">
+            <BurgerBuilder />
+          </Route>
+        </>
+				)}
+        <Route path="*" render={() => <Redirect to="/login" />} />
       </Switch>
     </Layout>
   );
