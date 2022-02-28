@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
 
 import axios from '../../../axios-orders';
 import Spinner from '../../../components/Spinner/Spinner';
@@ -8,7 +9,8 @@ import useForm from '../../../hooks/useForm';
 
 import classes from './ContactData.module.css';
 
-function ContactData({ ingredients, price, history }) {
+function ContactData({ ingredients, price, onCheckoutCancelled }) {
+  const history = useHistory();
   const [isValidated, setIsValidated] = useState(false);
   const [loading, setLoading] = useState(false);
   const { formData, inputChangeHandler } = useForm({
@@ -21,6 +23,14 @@ function ContactData({ ingredients, price, history }) {
 
   const handleSubmit = event => {
     const form = event.target;
+    const dateFormatted = new Date().toLocaleString('pl-PL', {
+      year: 'numeric',
+      month: 'numeric',
+      day: '2-digit',
+      hour: 'numeric',
+      minute: 'numeric',
+      hourCycle: 'h23',
+    });
 
     if (!form.checkValidity()) {
       event.preventDefault();
@@ -28,21 +38,11 @@ function ContactData({ ingredients, price, history }) {
     } else {
       setLoading(true);
 
-      const orderDate = new Date();
       const order = {
-        orderDate: orderDate.toLocaleString('pl-PL', {
-          year: 'numeric',
-          month: 'numeric',
-          day: '2-digit',
-          hour: 'numeric',
-          minute: 'numeric',
-          hourCycle: 'h23',
-        }),
+        orderDate: dateFormatted,
         ingredients: ingredients,
         price: price,
-        customer: {
-          formData,
-        },
+        customer: { formData },
       };
 
       axios
@@ -118,10 +118,20 @@ function ContactData({ ingredients, price, history }) {
             onChange={inputChangeHandler}
           />
         </Form.Group>
-
-        <Button type="submit" variant="primary">
-          Order
-        </Button>
+        <div className="d-lg-flex">
+          <Button
+            className="mr-lg-4 mb-2 mb-lg-0 w-100"
+            type="button"
+            variant="secondary"
+            onClick={onCheckoutCancelled}
+            size="lg"
+          >
+            Cancel
+          </Button>
+          <Button className="w-100" type="submit" variant="primary" size="lg">
+            Order
+          </Button>
+        </div>
       </Form>
     )
     : <Spinner />;
@@ -132,7 +142,7 @@ function ContactData({ ingredients, price, history }) {
 export default ContactData;
 
 ContactData.propTypes = {
-  history: PropTypes.object.isRequired,
   price: PropTypes.number.isRequired,
-  ingredients: PropTypes.object.isRequired
+  ingredients: PropTypes.object.isRequired,
+  onCheckoutCancelled: PropTypes.func.isRequired
 };

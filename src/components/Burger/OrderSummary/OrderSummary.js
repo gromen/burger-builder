@@ -1,5 +1,4 @@
 import React from 'react';
-import Aux from '../../../hoc/Aux/Aux';
 import Button from '../../UI/Button/Button';
 
 function orderSummary({
@@ -14,11 +13,9 @@ function orderSummary({
   ));
 
   return (
-    <Aux>
+    <>
       <h3>Your order: </h3>
-      <ul
-        style={{ listStyleType: 'none', paddingLeft: '0' }}
-      >
+      <ul style={{ listStyleType: 'none', paddingLeft: '0' }}>
         {ingredientsItems}
       </ul>
       <p>
@@ -33,7 +30,7 @@ function orderSummary({
       <Button btnType="Success" clicked={purchaseProceed}>
         CONTINUE
       </Button>
-    </Aux>
+    </>
   );
 }
 
