@@ -1,9 +1,11 @@
-function Input(props) {
+import React from 'react';
+
+function Input({ name }) {
   let inputElement = null;
 
-  switch (props.proptype) {
-    case "text":
-      inputElement = <input type='text' name={props.name} id='' />;
+  switch (name) {
+    case 'text':
+      inputElement = <input name={name} type="text" />;
       break;
 
     default:

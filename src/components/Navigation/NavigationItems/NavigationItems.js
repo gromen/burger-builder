@@ -1,16 +1,15 @@
-import NavigationItem from "./NavigationItem/NavigationItem";
+import React from 'react';
+import NavigationItem from './NavigationItem/NavigationItem';
 
-import classes from "./NavigationItems.module.css";
+import classes from './NavigationItems.module.css';
 
 function navigationItems() {
   return (
     <ul className={classes.NavigationItems}>
-      <NavigationItem link='/' exact>
+      <NavigationItem exact link="/">
         BurgerBuilder
       </NavigationItem>
-
-      <NavigationItem link='/orders/'>Orders</NavigationItem>
-
+      <NavigationItem link="/orders/">Orders</NavigationItem>
       {/* <NavigationItem link='/checkout/'>Checkout</NavigationItem> */}
     </ul>
   );

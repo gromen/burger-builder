@@ -1,17 +1,18 @@
-import Burger from "../../Burger/Burger";
-import Button from "../../UI/Button/Button";
+import React from 'react';
+import Burger from '../../Burger/Burger';
+import Button from '../../UI/Button/Button';
 
-import classes from "./CheckoutSummary.module.css";
+import classes from './CheckoutSummary.module.css';
 
 function checkoutSummary({ ingredients, onCheckoutCancelled, onCheckoutSucceed }) {
   return (
     <div className={classes.CheckoutSummary}>
       <h1>Checkout Summary</h1>
       <Burger ingredients={ingredients} />
-      <Button clicked={onCheckoutCancelled} btnType='Danger'>
+      <Button type="button" btnType="Danger" clicked={onCheckoutCancelled}>
         Cancel
       </Button>
-      <Button clicked={onCheckoutSucceed} btnType='Success'>
+      <Button btnType="Success" clicked={onCheckoutSucceed}>
         Continue
       </Button>
     </div>
