@@ -27,6 +27,7 @@ const userAuthSlice = createSlice({
     logout() {
       localStorage.removeItem('token');
 
+      // TODO add clearTimeout(runLogoutTimer)
       return {
         isLoggedIn: false,
         idToken: '',
