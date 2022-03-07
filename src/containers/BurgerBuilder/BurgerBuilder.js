@@ -53,12 +53,13 @@ const BurgerBuilder = () => {
     const countUpdated = countOld - 1;
     const ingredientPrice = INGREDIENT_PRICES[type];
     const newPrice = parseFloat((totalPrice - ingredientPrice).toFixed(2));
+    const ingredientsUpdated = { ...ingredients };
 
-    ingredients[type] = countUpdated;
+    ingredientsUpdated[type] = countUpdated;
 
-    dispatch(setIngredients(ingredients));
+    dispatch(setIngredients(ingredientsUpdated));
     dispatch(setTotalPrice(newPrice));
-    dispatch(updatePurchase(ingredients));
+    dispatch(updatePurchase(ingredientsUpdated));
   };
 
   const purchase = () => setPurchasing(true);
