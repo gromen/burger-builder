@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { clearLogoutTimer } from '../../../utils/helpers';
 
 const initialState = {
   isLoggedIn: false,
@@ -25,15 +26,14 @@ const userAuthSlice = createSlice({
     },
     logout() {
       localStorage.removeItem('token');
+      clearLogoutTimer();
 
-      // TODO add clearTimeout(runLogoutTimer)
       return {
         isLoggedIn: false,
         idToken: '',
         expiresIn: ''
       };
     },
-
   }
 });
 

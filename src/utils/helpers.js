@@ -15,6 +15,4 @@ export const runLogoutTimer = (dispatch, expirationTime) => {
   logoutTimer = setTimeout(() => dispatch(userAuthActions.logout()), remainingTime);
 };
 
-export default {
-  runLogoutTimer
-};
+export const clearLogoutTimer = () => clearTimeout(logoutTimer);
