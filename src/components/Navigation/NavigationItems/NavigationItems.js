@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { userAuthOperations } from '../../../store/ducks/user';
 import NavigationItem from './NavigationItem/NavigationItem';
@@ -19,7 +20,7 @@ const NavigationItems = () => {
         <NavigationItem link="/orders/">Orders</NavigationItem>
         <NavigationItem link="/checkout/">Checkout</NavigationItem>
         <NavigationItem link="/userProfile/">UserProfile</NavigationItem>
-        <button type="button" onClick={onLogout}>Log out</button>
+        <Button variant="secondary" onClick={onLogout}>Log out</Button>
       </>
 			)}
       {!isLoggedIn && <NavigationItem link="/login/">Log in</NavigationItem>}
