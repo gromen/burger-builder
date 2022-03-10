@@ -7,7 +7,7 @@ const BurgerControl = ({
 }) => (
   <div className={classes.BuildControl}>
     <div className={classes.Label}>{label}</div>
-    <button type="button" className={classes.More} onClick={added}>
+    <button type="button" className={classes.More} onClick={added} title={`Add ${label} ingredient`}>
       &#43;
     </button>
 
@@ -16,6 +16,7 @@ const BurgerControl = ({
       className={classes.Less}
       disabled={disabledNote}
       onClick={removed}
+      title={`Remove ${label} ingredient`}
     >
       &minus;
     </button>
