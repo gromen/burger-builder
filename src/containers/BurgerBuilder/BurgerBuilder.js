@@ -8,14 +8,14 @@ import Modal from '../../components/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import Spinner from '../../components/Spinner/Spinner';
 import WithErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
-import { burgerOperations } from '../../store/ducks/burger';
+import { setIngredients, setTotalPrice, updatePurchase } from '../../store/ducks/burgerBuilder/slice';
 import INGREDIENT_PRICES from '../../utils/ingredientPrices';
 
 const BurgerBuilder = () => {
   const dispatch = useDispatch();
-  const ingredients = useSelector(state => state.burgerState.burger.ingredients);
-  const totalPrice = useSelector(state => state.burgerState.burger.totalPrice);
-  const canPurchase = useSelector(state => state.burgerState.burger.canPurchase);
+  const ingredients = useSelector(state => state.burgerBuilderState.ingredients);
+  const totalPrice = useSelector(state => state.burgerBuilderState.totalPrice);
+  const canPurchase = useSelector(state => state.burgerBuilderState.canPurchase);
 
   const [purchasing, setPurchasing] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -27,11 +27,11 @@ const BurgerBuilder = () => {
 
     axios.get('/ingredients.json')
       .then(response => {
-        dispatch(burgerOperations.setIngredients(response.data));
+        dispatch(setIngredients(response.data));
         setLoading(false);
       })
       .catch(errorData => { setError(true); });
-  }, []);
+  }, [dispatch]);
 
   const ingredientAdd = type => {
     const countOld = ingredients[type];
@@ -43,9 +43,9 @@ const BurgerBuilder = () => {
     const ingredientPrice = INGREDIENT_PRICES[type];
     const newPrice = parseFloat(ingredientPrice + totalPrice).toFixed(2);
 
-    dispatch(burgerOperations.setIngredients(ingredientsUpdated));
-    dispatch(burgerOperations.setTotalPrice(Number(newPrice)));
-    dispatch(burgerOperations.updatePurchase(ingredientsUpdated));
+    dispatch(setIngredients(ingredientsUpdated));
+    dispatch(setTotalPrice(Number(newPrice)));
+    dispatch(updatePurchase(ingredientsUpdated));
   };
 
   const ingredientRemove = type => {
@@ -53,12 +53,13 @@ const BurgerBuilder = () => {
     const countUpdated = countOld - 1;
     const ingredientPrice = INGREDIENT_PRICES[type];
     const newPrice = parseFloat((totalPrice - ingredientPrice).toFixed(2));
+    const ingredientsUpdated = { ...ingredients };
 
-    ingredients[type] = countUpdated;
+    ingredientsUpdated[type] = countUpdated;
 
-    dispatch(burgerOperations.setIngredients(ingredients));
-    dispatch(burgerOperations.setTotalPrice(newPrice));
-    dispatch(burgerOperations.updatePurchase(ingredients));
+    dispatch(setIngredients(ingredientsUpdated));
+    dispatch(setTotalPrice(newPrice));
+    dispatch(updatePurchase(ingredientsUpdated));
   };
 
   const purchase = () => setPurchasing(true);
@@ -86,6 +87,7 @@ const BurgerBuilder = () => {
 
   return (
     <>
+      {ingredients && (
       <Modal modalClose={purchaseCancel} show={purchasing}>
         <OrderSummary
           ingredients={ingredients}
@@ -94,6 +96,7 @@ const BurgerBuilder = () => {
           price={totalPrice}
         />
       </Modal>
+      )}
       {ingredients && !loading && <Burger ingredients={ingredients} hasError={error} />}
       {loading && <Spinner />}
       {ingredients && (
@@ -101,7 +104,6 @@ const BurgerBuilder = () => {
         ingredientAdded={ingredientAdd}
         ingredientRemoved={ingredientRemove}
         disabled={disabledNote}
-        totalPrice={totalPrice}
         canPurchase={!canPurchase}
         onClickOrder={purchase}
       />

@@ -1,15 +1,15 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { userAuthOperations } from '../../../store/ducks/user';
+import { userAuthActions } from '../../../store/ducks/user/slice';
 import NavigationItem from './NavigationItem/NavigationItem';
 
 import classes from './NavigationItems.module.css';
 
 const NavigationItems = () => {
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector(state => state.userAuthState.userAuth.isLoggedIn);
+  const isLoggedIn = useSelector(state => state.userAuthState.isLoggedIn);
 
-  const onLogout = () => dispatch(userAuthOperations.onLogoutRequest());
+  const onLogout = () => dispatch(userAuthActions.logout());
 
   return (
     <ul className={classes.NavigationItems}>

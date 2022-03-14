@@ -1,13 +1,6 @@
-import { combineReducers, createStore } from 'redux';
+import { configureStore } from '@reduxjs/toolkit';
 import * as reducers from './ducks';
 
-export default function configureStore(initialState = {}) {
-  const rootReducer = combineReducers(reducers);
+const store = configureStore({ reducer: reducers });
 
-  return createStore(
-    rootReducer,
-    initialState,
-    window.__REDUX_DEVTOOLS_EXTENSION__
-		&& window.__REDUX_DEVTOOLS_EXTENSION__(),
-  );
-}
+export default store;

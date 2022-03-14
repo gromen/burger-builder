@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { FIREBASE_UPDATE_PASSWORD } from '../../utils/endpoints';
 
 const UserProfilePage = () => {
-  const idToken = useSelector(state => state.userAuthState.userAuth.idToken);
+  const idToken = useSelector(state => state.userAuthState.idToken);
   const passwordFieldRef = useRef();
   const navigate = useNavigate();
 
