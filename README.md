@@ -1,1 +1,1 @@
-[Burger Builder live demo](https://gromen.github.io/burgerBuilder/) (in progress)
+[Burger Builder live demo](https://gromen.github.io/burger-builder/) (in progress)
