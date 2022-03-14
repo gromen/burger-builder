@@ -8,16 +8,16 @@ import Checkout from './containers/Checkout/Checkout';
 import UserProfilePage from './containers/UserProfilePage/UserProfilePage';
 import Layout from './hoc/Layout/Layout';
 import Orders from './containers/Orders/Orders';
-import { userAuthOperations } from './store/ducks/user';
+import { userAuthActions } from './store/ducks/user/slice';
 
 function App() {
-  const isLoggedIn = useSelector(state => state.userAuthState.userAuth.isLoggedIn);
+  const isLoggedIn = useSelector(state => state.userAuthState.isLoggedIn);
 
   const tokenInfo = localStorage.getItem('token');
   const dispatch = useDispatch();
 
   if (tokenInfo) {
-    dispatch(userAuthOperations.onLoginSuccess());
+    dispatch(userAuthActions.login(tokenInfo));
   }
 
   return (
@@ -27,7 +27,6 @@ function App() {
         <>
           <Route path="/login" element={<LoginPage />} />
           <Route path="*" element={<Navigate to="/login" replace />} />
-
         </>
 				)}
         {isLoggedIn && (

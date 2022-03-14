@@ -1,6 +1,3 @@
-import userAuthReducer from './reducers';
-
-export { default as userAuthOperations } from './operations';
-export { default as userAuthTypes } from './types';
+import userAuthReducer from './slice';
 
 export default userAuthReducer;
