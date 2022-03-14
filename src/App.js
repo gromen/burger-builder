@@ -35,6 +35,7 @@ function App() {
           <Route path="/orders" element={<Orders />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/" element={<BurgerBuilder />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </>
 				)}
       </Routes>
