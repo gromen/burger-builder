@@ -3,13 +3,13 @@ import {
   Button, Col, Container, Form, Row
 } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { FIREBASE_UPDATE_PASSWORD } from '../../utils/endpoints';
 
 const UserProfilePage = () => {
   const idToken = useSelector(state => state.userAuthState.userAuth.idToken);
   const passwordFieldRef = useRef();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   let enteredNewPassword = passwordFieldRef.current;
 
@@ -28,7 +28,7 @@ const UserProfilePage = () => {
         'Content-type': 'application/json'
       }
     }).then(response => {
-      history.replace('/');
+      navigate('/', { replace: true });
     });
   };
 
