@@ -52,7 +52,6 @@ const LoginPage = () => {
 
       dispatch(userAuthActions.login({ idToken }));
       runLogoutTimer(dispatch, timeToLogout);
-      history.push('/');
       navigate('/');
     }).catch(error => console.error(error.message));
   };
