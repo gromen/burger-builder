@@ -3,12 +3,12 @@ import {
   Button, Col, Container, Form, Row, Spinner,
 } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { userAuthOperations } from '../../store/ducks/user';
 import { FIREBASE_SIGN_IN_WITH_PASSWORD, FIREBASE_SIGN_UP } from '../../utils/endpoints';
 
 const LoginPage = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const emailFieldRef = useRef();
   const passwordFieldRef = useRef();
@@ -51,7 +51,7 @@ const LoginPage = () => {
 
       dispatch(userAuthOperations.onLoginSuccess(idToken));
       userAuthOperations.runLogoutTimer(dispatch, timeToLogout);
-      history.push('/');
+      navigate('/');
     }).catch(error => console.error(error.message));
   };
 

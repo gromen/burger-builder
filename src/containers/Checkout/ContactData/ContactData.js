@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import axios from '../../../axios-orders';
 import Spinner from '../../../components/Spinner/Spinner';
@@ -10,7 +10,7 @@ import useForm from '../../../hooks/useForm';
 import classes from './ContactData.module.css';
 
 function ContactData({ ingredients, price, onCheckoutCancelled }) {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [isValidated, setIsValidated] = useState(false);
   const [loading, setLoading] = useState(false);
   const { formData, inputChangeHandler } = useForm({
@@ -50,7 +50,7 @@ function ContactData({ ingredients, price, onCheckoutCancelled }) {
         .then(response => {
           setLoading(false);
           setIsValidated(false);
-          history.push('/');
+          navigate('/');
         })
         .catch(error => {
           setLoading(false);
