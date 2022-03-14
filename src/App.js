@@ -1,6 +1,6 @@
 import './App.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Navigate, Routes, Route } from 'react-router-dom';
 import React from 'react';
 import LoginPage from './containers/LoginPage/LoginPage';
 import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
@@ -22,30 +22,22 @@ function App() {
 
   return (
     <Layout>
-      <Switch>
+      <Routes>
         {!isLoggedIn && (
-        <Route path="/login">
-          <LoginPage />
-        </Route>
+        <>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="*" element={<Navigate to="/login" replace />} />
+        </>
 				)}
         {isLoggedIn && (
         <>
-          <Route path="/userProfile">
-            <UserProfilePage />
-          </Route>
-          <Route path="/orders">
-            <Orders />
-          </Route>
-          <Route path="/checkout">
-            <Checkout />
-          </Route>
-          <Route exact path="/">
-            <BurgerBuilder />
-          </Route>
+          <Route path="/userProfile" element={<UserProfilePage />} />
+          <Route path="/orders" element={<Orders />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/" element={<BurgerBuilder />} />
         </>
 				)}
-        <Route path="*" render={() => <Redirect to="/login" />} />
-      </Switch>
+      </Routes>
     </Layout>
   );
 }

@@ -13,11 +13,10 @@ const NavigationItems = () => {
 
   return (
     <ul className={classes.NavigationItems}>
-      <NavigationItem exact link="/">BurgerBuilder</NavigationItem>
+      <NavigationItem link="/">BurgerBuilder</NavigationItem>
       {isLoggedIn && (
       <>
         <NavigationItem link="/orders/">Orders</NavigationItem>
-        <NavigationItem link="/checkout/">Checkout</NavigationItem>
         <NavigationItem link="/userProfile/">UserProfile</NavigationItem>
         <button type="button" onClick={onLogout}>Log out</button>
       </>

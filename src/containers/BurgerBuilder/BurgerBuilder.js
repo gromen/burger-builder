@@ -1,6 +1,6 @@
 import React, { useState, useEffect, } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from '../../axios-orders';
 import Burger from '../../components/Burger/Burger';
 import BurgerControls from '../../components/Burger/BurgerControls/BurgerControls';
@@ -20,7 +20,7 @@ const BurgerBuilder = () => {
   const [purchasing, setPurchasing] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     setLoading(true);
@@ -75,10 +75,7 @@ const BurgerBuilder = () => {
 
       const queryString = queryParams.join('&');
 
-      history.push({
-        pathname: '/checkout',
-        search: `?${queryString}`,
-      });
+      navigate({ pathname: '/checkout', search: `?${queryString}` });
     }
   };
 
