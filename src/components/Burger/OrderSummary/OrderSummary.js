@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '../../UI/Button/Button';
+import { Button } from 'react-bootstrap';
 
 function orderSummary({
   ingredients, purchaseCancelled, purchaseProceed, price
@@ -24,11 +24,11 @@ function orderSummary({
           {price}
         </strong>
       </p>
-      <Button btnType="Danger" clicked={purchaseCancelled}>
-        CANCEL
+      <Button className="mr-2" variant="secondary" onClick={purchaseCancelled}>
+        Cancel
       </Button>
-      <Button btnType="Success" clicked={purchaseProceed}>
-        CONTINUE
+      <Button variant="primary" onClick={purchaseProceed}>
+        Continue
       </Button>
     </>
   );
