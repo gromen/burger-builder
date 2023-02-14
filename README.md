@@ -1,4 +1,4 @@
-[Burger Builder live demo](https://gromen.github.io/burger-builder/)
+[Burger Builder live demo](https://burger-builder-5brwxcfr5-gromen.vercel.app/)
 
 login credentials for [demo](https://gromen.github.io/burger-builder/) site:
 
