@@ -72,13 +72,13 @@ const LoginPage = () => {
         />
 				)}
         {isLogin
-					? 'Login'
-					: 'Create Account'}
+          ? 'Login'
+          : 'Create Account'}
       </Button>
       <Form.Text style={{ display: 'inline-block' }}>
         {isLogin
-					? 'Don\'t have an account ? '
-					: 'Already have an account ? '}
+          ? 'Don\'t have an account ? '
+          : 'Already have an account ? '}
       </Form.Text>
       <Button
         variant="link"
@@ -87,8 +87,8 @@ const LoginPage = () => {
         >
         <small className="text-danger">
           {isLogin
-						? 'Register now.'
-						: 'Log in'}
+            ? 'Register now.'
+            : 'Log in'}
         </small>
       </Button>
     </>
@@ -106,7 +106,7 @@ const LoginPage = () => {
                 required
                 ref={emailFieldRef}
                 type="email"
-                placeholder="Enter email"
+                placeholder="Type 'user@test.com'"
               />
             </Form.Group>
 
@@ -116,7 +116,7 @@ const LoginPage = () => {
                 required
                 ref={passwordFieldRef}
                 type="password"
-                placeholder="Password"
+                placeholder="Type 'user.TestCom.At'"
                 // pattern="^(?=.*[a-z])(?=.*[A-Z]).{8,}$"
               />
 
