@@ -1,6 +1,7 @@
-import './App.module.css'
-import { Navigate, Routes, Route } from 'react-router-dom'
 import React from 'react'
+import { Navigate, Routes, Route } from 'react-router-dom'
+
+import './App.module.css'
 import LoginPage from './containers/LoginPage/LoginPage'
 import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder'
 import Checkout from './containers/Checkout/Checkout'
