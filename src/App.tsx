@@ -1,5 +1,4 @@
 import './App.module.css'
-import { useDispatch, useSelector } from 'react-redux'
 import { Navigate, Routes, Route } from 'react-router-dom'
 import React from 'react'
 import LoginPage from './containers/LoginPage/LoginPage'
@@ -9,14 +8,15 @@ import UserProfilePage from './containers/UserProfilePage/UserProfilePage'
 import Layout from './hoc/Layout/Layout'
 import Orders from './containers/Orders/Orders'
 import { userAuthActions } from './store/ducks/user/slice'
+import { useAppDispatch, useAppSelector } from './hooks/redux-toolkit'
 
-function App() {
-  const isLoggedIn = useSelector(state => state.userAuthState.isLoggedIn)
+function App(): JSX.Element {
+  const isLoggedIn = useAppSelector((state) => state.userAuthState.isLoggedIn)
 
   const tokenInfo = localStorage.getItem('token')
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
-  if (tokenInfo) {
+  if (tokenInfo != null) {
     dispatch(userAuthActions.login(tokenInfo))
   }
 
