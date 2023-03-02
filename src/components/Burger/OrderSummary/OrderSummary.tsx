@@ -1,14 +1,23 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
+import { type Ingredients } from '../../../utils/ingredientPrices';
+
+interface PropsOrderSummary {
+  ingredients: Ingredients;
+  purchaseCancelled: () => void;
+  purchaseProceed: () => void;
+  price: number;
+}
 
 function orderSummary({
-  ingredients, purchaseCancelled, purchaseProceed, price
-}) {
-  const ingredientsItems = Object.keys(ingredients).map(ingredient => (
+  ingredients,
+  purchaseCancelled,
+  purchaseProceed,
+  price
+}: PropsOrderSummary): JSX.Element {
+  const ingredientsItems = Object.keys(ingredients).map((ingredient) => (
     <li key={ingredient}>
-      {ingredient}
-      :
-      {ingredients[ingredient]}
+      {ingredient}:{ingredients[ingredient]}
     </li>
   ));
 

@@ -2,7 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classes from './BurgerIngredient.module.css';
 
-function BurgerIngredient({ type }) {
+interface PropsBurgerIngredient {
+  type: string;
+}
+
+function BurgerIngredient({ type }: PropsBurgerIngredient): JSX.Element | null {
   let ingredient = null;
 
   switch (type) {
