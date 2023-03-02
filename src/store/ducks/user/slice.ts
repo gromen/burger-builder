@@ -14,7 +14,7 @@ const userAuthSlice = createSlice({
     login(state, action) {
       const idTokenInfo = localStorage.getItem('token');
 
-      if (!idTokenInfo) {
+      if (idTokenInfo == null) {
         localStorage.setItem('token', action.payload.idToken);
       }
 

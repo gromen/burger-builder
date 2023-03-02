@@ -1,6 +1,10 @@
 import React from 'react';
 
-function Input({ name }) {
+interface PropsInput {
+  name: string;
+}
+
+function Input({ name }: PropsInput): JSX.Element | null {
   let inputElement = null;
 
   switch (name) {
