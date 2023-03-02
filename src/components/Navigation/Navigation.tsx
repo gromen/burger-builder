@@ -1,7 +1,7 @@
 import React from 'react';
 import NavigationItems from './NavigationItems/NavigationItems';
 
-function Navigation() {
+function Navigation(): JSX.Element {
   return (
     <nav>
       <NavigationItems />

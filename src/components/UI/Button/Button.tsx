@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { type ReactNode } from 'react';
 import classes from './Button.module.css';
+
 interface PropsButton {
-  children: ChildNode;
+  children: ReactNode;
   clicked: () => void;
   btnType: string;
 }
 
-function button({ children, clicked, btnType }: PropsButton): JSX.Element {
+function Button({ children, clicked, btnType }: PropsButton): JSX.Element {
   return (
     <button
       type="button"
@@ -18,4 +19,4 @@ function button({ children, clicked, btnType }: PropsButton): JSX.Element {
   );
 }
 
-export default button;
+export default Button;
