@@ -14,7 +14,7 @@ interface InitialState {
 const initialState: InitialState = {
   ingredients: {},
   totalPrice: 0,
-  canPurchase: false,
+  canPurchase: true,
   isPurchasing: false,
   error: false
 };
@@ -41,14 +41,14 @@ const burgerBuilderSlice = createSlice({
       error: state.error
     }),
     updatePurchase: (state, action: PayloadAction<boolean>) => ({
-      canPurchase: Object.values(action.payload).some((value) => value),
+      canPurchase: action.payload,
       ingredients: state.ingredients,
       totalPrice: state.totalPrice,
       isPurchasing: state.isPurchasing,
       error: state.error
     }),
-    canPurchase: (state) => ({
-      canPurchase: true,
+    canPurchase: (state, action: PayloadAction<boolean>) => ({
+      canPurchase: action.payload,
       ingredients: state.ingredients,
       totalPrice: state.totalPrice,
       isPurchasing: state.isPurchasing,

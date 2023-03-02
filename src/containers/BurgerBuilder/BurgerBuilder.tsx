@@ -12,7 +12,8 @@ import WithErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import {
   setIngredients,
   setTotalPrice,
-  updatePurchase
+  // updatePurchase,
+  canPurchase as isPurchaseAvailable
 } from '../../store/ducks/burgerBuilder/slice';
 import INGREDIENT_PRICES from '../../utils/ingredientPrices';
 import { useAppSelector } from '../../hooks/redux-toolkit';
@@ -28,7 +29,6 @@ const BurgerBuilder = (): JSX.Element => {
   const canPurchase = useAppSelector(
     (state) => state.burgerBuilderState.canPurchase
   );
-
   const [purchasing, setPurchasing] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -59,7 +59,11 @@ const BurgerBuilder = (): JSX.Element => {
 
     dispatch(setIngredients(ingredientsUpdated));
     dispatch(setTotalPrice(Number(newPrice)));
-    dispatch(updatePurchase(Boolean(ingredientsUpdated)));
+    dispatch(
+      isPurchaseAvailable(
+        Object.values(ingredientsUpdated).every((value) => value === 0)
+      )
+    );
   };
 
   const ingredientRemove = (type: string | number): void => {
@@ -73,7 +77,11 @@ const BurgerBuilder = (): JSX.Element => {
 
     dispatch(setIngredients(ingredientsUpdated));
     dispatch(setTotalPrice(newPrice));
-    dispatch(updatePurchase(Boolean(ingredientsUpdated)));
+    dispatch(
+      isPurchaseAvailable(
+        Object.values(ingredientsUpdated).every((value) => value === 0)
+      )
+    );
   };
 
   const purchase = (): void => {
@@ -122,7 +130,7 @@ const BurgerBuilder = (): JSX.Element => {
         ingredientAdded={ingredientAdd}
         ingredientRemoved={ingredientRemove}
         disabled={disabledNote}
-        canPurchase={!canPurchase}
+        canPurchase={canPurchase}
         onClickOrder={purchase}
       />
     </>
