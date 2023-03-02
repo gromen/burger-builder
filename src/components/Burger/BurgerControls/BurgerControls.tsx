@@ -1,10 +1,18 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+
 import BurgerControl from './BurgerControl/BurgerControl';
 import classes from './BurgerControl/BurgerControl.module.css';
 import classesGlobal from '../../../App.module.css';
 import CONTROLS from '../../../utils/controls';
+import { useAppSelector } from '../../../hooks/redux-toolkit';
+
+interface PropsBurgerControls {
+  ingredientAdded: (type: string | number) => void;
+  ingredientRemoved: (type: string | number) => void;
+  disabled: boolean;
+  canPurchase: boolean;
+  onClickOrder: () => void;
+}
 
 const BurgerControls = ({
   ingredientAdded,
@@ -12,8 +20,8 @@ const BurgerControls = ({
   disabled,
   canPurchase,
   onClickOrder
-}) => {
-  const totalPrice = useSelector(
+}: PropsBurgerControls): JSX.Element => {
+  const totalPrice = useAppSelector(
     (state) => state.burgerBuilderState.totalPrice
   );
 
@@ -24,11 +32,15 @@ const BurgerControls = ({
       </p>
       {CONTROLS.map((control) => (
         <BurgerControl
-          added={() => ingredientAdded(control.type)}
-          removed={() => ingredientRemoved(control.type)}
+          added={() => {
+            ingredientAdded(control.type);
+          }}
+          removed={() => {
+            ingredientRemoved(control.type);
+          }}
           key={control.label}
           label={control.label}
-          type={control.type}
+          // @ts-expect-error TODO refactor disabled[control.type] to meet ts requirements
           disabledNote={disabled[control.type]}
         />
       ))}
@@ -45,11 +57,3 @@ const BurgerControls = ({
 };
 
 export default BurgerControls;
-
-BurgerControls.propTypes = {
-  canPurchase: PropTypes.bool.isRequired,
-  onClickOrder: PropTypes.func.isRequired,
-  ingredientAdded: PropTypes.func.isRequired,
-  ingredientRemoved: PropTypes.func.isRequired,
-  disabled: PropTypes.any.isRequired
-};

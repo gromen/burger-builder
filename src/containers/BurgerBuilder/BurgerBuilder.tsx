@@ -129,6 +129,7 @@ const BurgerBuilder = (): JSX.Element => {
       <BurgerControls
         ingredientAdded={ingredientAdd}
         ingredientRemoved={ingredientRemove}
+        // @ts-expect-error TODO refactor disabled[disabledNote] to meet ts requirements
         disabled={disabledNote}
         canPurchase={canPurchase}
         onClickOrder={purchase}
