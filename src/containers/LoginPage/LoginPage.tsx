@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { type FormEvent, useRef, useState } from 'react';
 import { Button, Col, Container, Form, Row, Spinner } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -9,16 +9,16 @@ import {
   FIREBASE_SIGN_UP
 } from '../../utils/endpoints';
 
-const LoginPage = () => {
+const LoginPage = (): JSX.Element => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const emailFieldRef = useRef();
-  const passwordFieldRef = useRef();
+  const emailFieldRef = useRef<HTMLInputElement>(null);
+  const passwordFieldRef = useRef<HTMLInputElement>(null);
 
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
-  const onSubmit = (event) => {
+  const onSubmit = (event: FormEvent): void => {
     event.preventDefault();
     setIsLoading(true);
 
@@ -27,23 +27,23 @@ const LoginPage = () => {
     fetch(url, {
       method: 'POST',
       body: JSON.stringify({
-        email: emailFieldRef.current.value,
-        password: passwordFieldRef.current.value,
+        email: emailFieldRef.current?.value,
+        password: passwordFieldRef.current?.value,
         returnSecureToken: true
       }),
       headers: {
         'Content-type': 'application/json'
       }
     })
-      .then((response) => {
+      .then(async (response) => {
         if (response.ok) {
           setIsLoading(false);
 
-          return response.json();
+          return await response.json();
         } else {
           setIsLoading(false);
 
-          return response.json().then(() => {
+          return await response.json().then(() => {
             throw new Error('Authentication failed');
           });
         }
@@ -57,12 +57,16 @@ const LoginPage = () => {
         runLogoutTimer(dispatch, timeToLogout);
         navigate('/');
       })
-      .catch((error) => console.error(error.message));
+      .catch((error) => {
+        console.error(error.message);
+      });
   };
 
-  const onClickSwitchAuthMethod = () => setIsLogin((prevState) => !prevState);
+  const onClickSwitchAuthMethod = (): void => {
+    setIsLogin((prevState) => !prevState);
+  };
 
-  const AuthMethodButtonText = () => (
+  const AuthMethodButtonText = (): JSX.Element => (
     <>
       <Button className="w-100 mb-2" variant="primary" type="submit">
         {isLoading && (
