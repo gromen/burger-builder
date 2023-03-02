@@ -7,18 +7,22 @@ import classesGlobal from '../../../App.module.css';
 import CONTROLS from '../../../utils/controls';
 
 const BurgerControls = ({
-  ingredientAdded, ingredientRemoved, disabled, canPurchase, onClickOrder
+  ingredientAdded,
+  ingredientRemoved,
+  disabled,
+  canPurchase,
+  onClickOrder
 }) => {
-  const totalPrice = useSelector(state => state.burgerBuilderState.totalPrice);
+  const totalPrice = useSelector(
+    (state) => state.burgerBuilderState.totalPrice
+  );
 
   return (
     <div className={classesGlobal.TextCenter}>
       <p className={classesGlobal.TextCenter}>
-        Total price:
-        {' '}
-        <strong>{totalPrice}</strong>
+        Total price: <strong>{totalPrice}</strong>
       </p>
-      {CONTROLS.map(control => (
+      {CONTROLS.map((control) => (
         <BurgerControl
           added={() => ingredientAdded(control.type)}
           removed={() => ingredientRemoved(control.type)}
@@ -27,10 +31,11 @@ const BurgerControls = ({
           type={control.type}
           disabledNote={disabled[control.type]}
         />
-			))}
+      ))}
       <button
         type="button"
-        className={classes.OrderButton} disabled={canPurchase}
+        className={classes.OrderButton}
+        disabled={canPurchase}
         onClick={onClickOrder}
       >
         Order burger

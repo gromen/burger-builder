@@ -8,7 +8,7 @@ import classes from './NavigationItems.module.css';
 
 const NavigationItems = () => {
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector(state => state.userAuthState.isLoggedIn);
+  const isLoggedIn = useSelector((state) => state.userAuthState.isLoggedIn);
 
   const onLogout = () => dispatch(userAuthActions.logout());
 
@@ -16,12 +16,14 @@ const NavigationItems = () => {
     <ul className={classes.NavigationItems}>
       <NavigationItem link="/">BurgerBuilder</NavigationItem>
       {isLoggedIn && (
-      <>
-        <NavigationItem link="/orders/">Orders</NavigationItem>
-        <NavigationItem link="/userProfile/">UserProfile</NavigationItem>
-        <Button variant="secondary" onClick={onLogout}>Log out</Button>
-      </>
-			)}
+        <>
+          <NavigationItem link="/orders/">Orders</NavigationItem>
+          <NavigationItem link="/userProfile/">UserProfile</NavigationItem>
+          <Button variant="secondary" onClick={onLogout}>
+            Log out
+          </Button>
+        </>
+      )}
       {!isLoggedIn && <NavigationItem link="/login/">Log in</NavigationItem>}
     </ul>
   );

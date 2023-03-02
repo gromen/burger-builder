@@ -7,9 +7,12 @@ import classesGlobal from '../../App.module.css';
 
 function Burger({ ingredients, hasError }) {
   let ingredientsAll = Object.keys(ingredients)
-    .map(ingredientsKey => [...Array(Math.max(0, ingredients[ingredientsKey]))]
-      .map((_, i) => <BurgerIngredient key={ingredientsKey + i} type={ingredientsKey} />))
-    	.reduce((arr, curr) => arr.concat(curr), []);
+    .map((ingredientsKey) =>
+      [...Array(Math.max(0, ingredients[ingredientsKey]))].map((_, i) => (
+        <BurgerIngredient key={ingredientsKey + i} type={ingredientsKey} />
+      ))
+    )
+    .reduce((arr, curr) => arr.concat(curr), []);
 
   if (ingredientsAll.length === 0) {
     ingredientsAll = (

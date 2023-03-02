@@ -2,32 +2,26 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Badge, Button, Card } from 'react-bootstrap';
 
-function Order({
-  ingredients, price, orderDate
-}) {
+function Order({ ingredients, price, orderDate }) {
   const orderIngredients = [];
 
   for (const ingredientName in ingredients) {
     orderIngredients.push({
       name: ingredientName,
-      amount: ingredients[ingredientName],
+      amount: ingredients[ingredientName]
     });
   }
 
-  const orderIngredientsOutput = orderIngredients.map(ingredient => (
+  const orderIngredientsOutput = orderIngredients.map((ingredient) => (
     <Button
       type="button"
       className="mr-2 mt-2 mt-md-0 d-block d-md-inline-block text-capitalize"
       variant="primary"
       key={ingredient.name}
-      >
-      {ingredient.name}
-      {' '}
-      <Badge variant="light">{ingredient.amount}</Badge>
+    >
+      {ingredient.name} <Badge variant="light">{ingredient.amount}</Badge>
       <span className="sr-only">
-        {ingredient.name}
-        {' '}
-        amount:
+        {ingredient.name} amount:
         {ingredient.amount}
       </span>
     </Button>
@@ -36,9 +30,7 @@ function Order({
   return (
     <Card className="mt-3">
       <Card.Header className="text-lg-right">
-        <strong>Order date:</strong>
-        {' '}
-        {orderDate}
+        <strong>Order date:</strong> {orderDate}
       </Card.Header>
       <Card.Body>
         <Card.Title>
@@ -59,5 +51,5 @@ export default Order;
 Order.propTypes = {
   ingredients: PropTypes.object.isRequired,
   price: PropTypes.string.isRequired,
-  orderDate: PropTypes.string.isRequired,
+  orderDate: PropTypes.string.isRequired
 };

@@ -9,8 +9,8 @@ function logo({ openedSideDrawer }) {
         alt="logo burger"
         src={logoImg}
         style={{
-					transform: openedSideDrawer ? 'rotateZ(-180deg)' : 'rotateZ(0deg)',
-				}}
+          transform: openedSideDrawer ? 'rotateZ(-180deg)' : 'rotateZ(0deg)'
+        }}
       />
     </div>
   );

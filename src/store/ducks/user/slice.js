@@ -33,7 +33,7 @@ const userAuthSlice = createSlice({
         idToken: '',
         expiresIn: ''
       };
-    },
+    }
   }
 });
 

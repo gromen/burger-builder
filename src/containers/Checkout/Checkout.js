@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
@@ -28,6 +27,7 @@ function Checkout() {
     navigate(-1);
   }
 
+  // eslint-disable-next-line
   function onCheckoutSucceedHandler() {
     navigate('/checkout/contact-data', { replace: true });
   }
@@ -47,5 +47,5 @@ function Checkout() {
 export default Checkout;
 
 Checkout.defaultProps = {
-  price: 0.00
+  price: 0.0
 };
