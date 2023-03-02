@@ -1,8 +1,14 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import { Badge, Button, Card } from 'react-bootstrap';
+import { type Ingredients } from '../../utils/ingredientPrices';
 
-function Order({ ingredients, price, orderDate }) {
+interface PropsOrder {
+  ingredients: Ingredients;
+  price: string;
+  orderDate: Date;
+}
+
+function Order({ ingredients, price, orderDate }: PropsOrder): JSX.Element {
   const orderIngredients = [];
 
   for (const ingredientName in ingredients) {
@@ -47,9 +53,3 @@ function Order({ ingredients, price, orderDate }) {
 }
 
 export default Order;
-
-Order.propTypes = {
-  ingredients: PropTypes.object.isRequired,
-  price: PropTypes.string.isRequired,
-  orderDate: PropTypes.string.isRequired
-};
