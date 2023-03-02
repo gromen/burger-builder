@@ -1,16 +1,18 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
 import { userAuthActions } from '../../../store/ducks/user/slice';
 import NavigationItem from './NavigationItem/NavigationItem';
 
 import classes from './NavigationItems.module.css';
+import { useAppDispatch, useAppSelector } from '../../../hooks/redux-toolkit';
+import { type AppDispatch } from '../../../store';
 
-const NavigationItems = () => {
-  const dispatch = useDispatch();
-  const isLoggedIn = useSelector((state) => state.userAuthState.isLoggedIn);
+const NavigationItems = (): JSX.Element => {
+  const dispatch = useAppDispatch();
+  const isLoggedIn = useAppSelector((state) => state.userAuthState.isLoggedIn);
 
-  const onLogout = () => dispatch(userAuthActions.logout());
+  // @ts-expect-error to fix
+  const onLogout = (): AppDispatch => dispatch(userAuthActions.logout());
 
   return (
     <ul className={classes.NavigationItems}>

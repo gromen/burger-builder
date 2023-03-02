@@ -26,6 +26,15 @@
         "@typescript-eslint/semi": "off",
         "@typescript-eslint/member-delimiter-style": "off",
         "multiline-ternary": "off",
-        "react/display-name": [0, { "ignoreTranspilerName": true }]
+        "react/display-name": [0, { "ignoreTranspilerName": true }],
+        "no-restricted-imports": "off",
+        "@typescript-eslint/no-restricted-imports": [
+            "warn",
+            {
+                "name": "react-redux-toolkit",
+                "importNames": ["useSelector", "useDispatch"],
+                "message": "Use typed hooks `useAppDispatch` and `useAppSelector` instead."
+            }
+        ]
     }
 }
