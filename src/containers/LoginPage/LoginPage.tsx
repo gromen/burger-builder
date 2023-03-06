@@ -93,6 +93,9 @@ const LoginPage = (): JSX.Element => {
           {isLogin ? 'Register now.' : 'Log in'}
         </small>
       </Button>
+      <Form.Text className="mt-4 text-muted">
+        login: user@test.com <br /> password: user.TestCom.At
+      </Form.Text>
     </>
   );
 
