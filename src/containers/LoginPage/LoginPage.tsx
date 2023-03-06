@@ -1,13 +1,10 @@
 import React, { type FormEvent, useRef, useState } from 'react';
 import { Button, Col, Container, Form, Row, Spinner } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { runLogoutTimer } from '../../utils/helpers';
+// import { runLogoutTimer } from '../../utils/helpers';
 import { userAuthActions } from '../../store/ducks/user/slice';
-import {
-  FIREBASE_SIGN_IN_WITH_PASSWORD,
-  FIREBASE_SIGN_UP
-} from '../../utils/endpoints';
 import { useAppDispatch } from '../../hooks/redux-toolkit';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
 const LoginPage = (): JSX.Element => {
   const navigate = useNavigate();
@@ -22,43 +19,28 @@ const LoginPage = (): JSX.Element => {
     event.preventDefault();
     setIsLoading(true);
 
-    const url = isLogin ? FIREBASE_SIGN_IN_WITH_PASSWORD : FIREBASE_SIGN_UP;
+    const emailEntered = emailFieldRef.current?.value as string;
+    const passwordEntered = passwordFieldRef.current?.value as string;
 
-    fetch(url, {
-      method: 'POST',
-      body: JSON.stringify({
-        email: emailFieldRef.current?.value,
-        password: passwordFieldRef.current?.value,
-        returnSecureToken: true
-      }),
-      headers: {
-        'Content-type': 'application/json'
-      }
-    })
-      .then(async (response) => {
-        if (response.ok) {
-          setIsLoading(false);
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, emailEntered, passwordEntered)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log(user);
 
-          return await response.json();
-        } else {
-          setIsLoading(false);
+        // const timeToLogout = new Date(new Date().getTime() + +expiresIn * 1000);
 
-          return await response.json().then(() => {
-            throw new Error('Authentication failed');
-          });
-        }
-      })
-      .then((data) => {
-        const { idToken, expiresIn } = data;
-
-        const timeToLogout = new Date(new Date().getTime() + +expiresIn * 1000);
-
-        dispatch(userAuthActions.login({ idToken }));
-        runLogoutTimer(dispatch, timeToLogout);
+        dispatch(
+          // @ts-expect-error sasa
+          userAuthActions.login({ idToken: user.accessToken })
+        );
+        // runLogoutTimer(dispatch, timeToLogout);
         navigate('/');
       })
       .catch((error) => {
+        console.error(error.code);
         console.error(error.message);
+        setIsLoading(false);
       });
   };
 
