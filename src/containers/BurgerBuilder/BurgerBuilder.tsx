@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import axios from '../../axios-orders';
@@ -16,10 +15,12 @@ import {
   canPurchase as isPurchaseAvailable
 } from '../../store/ducks/burgerBuilder/slice';
 import INGREDIENT_PRICES from '../../utils/ingredientPrices';
-import { useAppSelector } from '../../hooks/redux-toolkit';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-toolkit';
+import { useIngredients } from '../../hooks/useIngredients';
 
 const BurgerBuilder = (): JSX.Element => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const ingredients = useAppSelector(
     (state) => state.burgerBuilderState.ingredients
   );
@@ -30,23 +31,13 @@ const BurgerBuilder = (): JSX.Element => {
     (state) => state.burgerBuilderState.canPurchase
   );
   const [purchasing, setPurchasing] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const navigate = useNavigate();
+  const [loading, error, data] = useIngredients([]);
 
   useEffect(() => {
-    setLoading(true);
-
-    axios
-      .get('/ingredients.json')
-      .then((response) => {
-        dispatch(setIngredients(response.data));
-        setLoading(false);
-      })
-      .catch(() => {
-        setError(true);
-      });
-  }, [dispatch]);
+    if (data != null) {
+      dispatch(setIngredients(data));
+    }
+  }, [data]);
 
   const ingredientAdd = (type: string | number): void => {
     const countOld = ingredients[type];
@@ -124,8 +115,8 @@ const BurgerBuilder = (): JSX.Element => {
           price={totalPrice}
         />
       </Modal>
-      {!loading && <Burger ingredients={ingredients} hasError={error} />}
-      {loading && <Spinner />}
+      {loading != null && <Burger ingredients={ingredients} hasError={error} />}
+      {loading == null && <Spinner />}
       <BurgerControls
         ingredientAdded={ingredientAdd}
         ingredientRemoved={ingredientRemove}

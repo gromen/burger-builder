@@ -1,6 +1,5 @@
 import React, { type FormEvent, useRef, useState } from 'react';
 import { Button, Col, Container, Form, Row, Spinner } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { runLogoutTimer } from '../../utils/helpers';
 import { userAuthActions } from '../../store/ducks/user/slice';
@@ -8,10 +7,11 @@ import {
   FIREBASE_SIGN_IN_WITH_PASSWORD,
   FIREBASE_SIGN_UP
 } from '../../utils/endpoints';
+import { useAppDispatch } from '../../hooks/redux-toolkit';
 
 const LoginPage = (): JSX.Element => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const emailFieldRef = useRef<HTMLInputElement>(null);
   const passwordFieldRef = useRef<HTMLInputElement>(null);
 
