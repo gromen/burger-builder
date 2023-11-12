@@ -1,33 +1,54 @@
-import React, { type FormEvent, useRef } from 'react';
-import { Button, Col, Container, Form, Row } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
-import { FIREBASE_UPDATE_PASSWORD } from '../../utils/endpoints';
-import { useAppSelector } from '../../hooks/redux-toolkit';
+import React, { type FormEvent, useRef, useState } from 'react';
+import { Button, Col, Container, Form, Row, Spinner } from 'react-bootstrap';
+import Modal from '../../components/Modal/Modal';
+import {
+  updatePassword,
+  reauthenticateWithCredential,
+  EmailAuthProvider,
+  onAuthStateChanged
+} from 'firebase/auth';
+import LoginPage from '../LoginPage/LoginPage';
+import { auth } from '../../firebase/fireabseConfig';
 
 const UserProfilePage = (): JSX.Element => {
-  const idToken = useAppSelector((state) => state.userAuthState.idToken);
   const passwordFieldRef = useRef<HTMLInputElement>(null);
-  const navigate = useNavigate();
+  const [isModal, setIsModal] = useState(false);
+  const [status, setStatus] = useState('');
+  const currentUser = auth.currentUser;
 
-  let enteredNewPassword = passwordFieldRef.current;
-
-  const onSubmit = (event: FormEvent): void => {
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type,@typescript-eslint/no-unused-vars
+  const handleClose = () => {
+    setIsModal(false);
+  };
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type,@typescript-eslint/no-unused-vars
+  const onSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    // @ts-expect-error to fix
-    enteredNewPassword = passwordFieldRef.current?.value;
+    const enteredNewPassword = passwordFieldRef?.current?.value;
 
-    void fetch(FIREBASE_UPDATE_PASSWORD, {
-      method: 'POST',
-      body: JSON.stringify({
-        idToken,
-        password: enteredNewPassword,
-        returnSecureToken: false
-      }),
-      headers: {
-        'Content-type': 'application/json'
+    if (currentUser == null) return;
+    if (enteredNewPassword == null) return;
+
+    const credential = EmailAuthProvider.credential(
+      currentUser?.email as string,
+      enteredNewPassword
+    );
+
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+    onAuthStateChanged(auth, async (user): Promise<void> => {
+      if (user?.uid !== currentUser.uid) {
+        try {
+          await reauthenticateWithCredential(currentUser, credential);
+          console.log({ currentUser });
+        } catch (error) {
+          setIsModal(true);
+          console.log(error);
+        }
+      } else {
+        setStatus('updating');
+        await updatePassword(currentUser, enteredNewPassword).then(() => {
+          setStatus('updated');
+        });
       }
-    }).then(() => {
-      navigate('/', { replace: true });
     });
   };
 
@@ -36,6 +57,7 @@ const UserProfilePage = (): JSX.Element => {
       <Row className="justify-content-center">
         <Col xs lg="6">
           <h1>User Profile</h1>
+          {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
           <Form onSubmit={onSubmit}>
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>New Password</Form.Label>
@@ -57,11 +79,31 @@ const UserProfilePage = (): JSX.Element => {
               </Form.Control.Feedback>
             </Form.Group>
             <Button className="w-100" variant="primary" type="submit">
+              {status === 'updating' && (
+                <Spinner
+                  className="mr-2"
+                  as="span"
+                  animation="border"
+                  size="sm"
+                  role="status"
+                  aria-hidden="true"
+                />
+              )}
               Change password
             </Button>
           </Form>
+          {status === 'updated' && (
+            <p className="text-success h6 mt-3">Password Updated</p>
+          )}
         </Col>
       </Row>
+      {isModal ? (
+        <>
+          <Modal show={isModal} modalClose={handleClose}>
+            <LoginPage />
+          </Modal>
+        </>
+      ) : null}
     </Container>
   );
 };
