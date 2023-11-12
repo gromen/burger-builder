@@ -4,7 +4,13 @@ import { useNavigate } from 'react-router-dom';
 // import { runLogoutTimer } from '../../utils/helpers';
 import { userAuthActions } from '../../store/ducks/user/slice';
 import { useAppDispatch } from '../../hooks/redux-toolkit';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword
+} from 'firebase/auth';
+import { auth } from '../../firebase/fireabseConfig';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 const LoginPage = (): JSX.Element => {
   const navigate = useNavigate();
@@ -22,24 +28,38 @@ const LoginPage = (): JSX.Element => {
     const emailEntered = emailFieldRef.current?.value as string;
     const passwordEntered = passwordFieldRef.current?.value as string;
 
-    const auth = getAuth();
-    signInWithEmailAndPassword(auth, emailEntered, passwordEntered)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        console.log(user);
+    if (isLogin) {
+      signInWithEmailAndPassword(auth, emailEntered, passwordEntered)
+        .then((userCredential) => {
+          const user = userCredential.user;
 
-        // const timeToLogout = new Date(new Date().getTime() + +expiresIn * 1000);
+          // const timeToLogout = new Date(new Date().getTime() + +expiresIn * 1000);
+          dispatch(
+            // @ts-expect-error sasa
+            userAuthActions.login({ idToken: user.accessToken })
+          );
+          // runLogoutTimer(dispatch, timeToLogout);
+          navigate('/');
+        })
+        .catch((error) => {
+          toast.error(error.message);
+          console.error(error.code);
+          console.error(error.message);
+          setIsLoading(false);
+        });
+      return;
+    }
 
-        dispatch(
-          // @ts-expect-error sasa
-          userAuthActions.login({ idToken: user.accessToken })
-        );
-        // runLogoutTimer(dispatch, timeToLogout);
-        navigate('/');
+    createUserWithEmailAndPassword(auth, emailEntered, passwordEntered)
+      .then(() => {
+        toast.success('Account created successfully!');
       })
       .catch((error) => {
+        toast.error(error.message);
         console.error(error.code);
         console.error(error.message);
+      })
+      .finally(() => {
         setIsLoading(false);
       });
   };
@@ -76,7 +96,7 @@ const LoginPage = (): JSX.Element => {
         </small>
       </Button>
       <Form.Text className="mt-4 text-muted">
-        login: user@test.com <br /> password: user.TestCom.At
+        login: test@example.pl <br /> password: test@example.pl
       </Form.Text>
     </>
   );
@@ -113,6 +133,7 @@ const LoginPage = (): JSX.Element => {
           </Form>
         </Col>
       </Row>
+      <ToastContainer />
     </Container>
   );
 };

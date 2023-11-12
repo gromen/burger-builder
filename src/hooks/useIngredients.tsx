@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import axios from '../axios-orders';
 
-export const useIngredients = (initialValue = []): any => {
+type InitialValue = Array<Record<string, number>>;
+
+export const useIngredients = (initialValue: InitialValue): any => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState(initialValue);
   const [error, setError] = useState(false);
