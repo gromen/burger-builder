@@ -1,5 +1,4 @@
-import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,8 +7,17 @@ import Spinner from '../../../components/Spinner/Spinner';
 import useForm from '../../../hooks/useForm';
 
 import classes from './ContactData.module.css';
+export type ContactDataProps = {
+  ingredients: { [key: string]: number };
+  price: number;
+  onCheckoutCancelled: () => void;
+};
 
-function ContactData({ ingredients, price, onCheckoutCancelled }) {
+function ContactData({
+  ingredients,
+  price,
+  onCheckoutCancelled
+}: ContactDataProps) {
   const navigate = useNavigate();
   const [isValidated, setIsValidated] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -21,8 +29,8 @@ function ContactData({ ingredients, price, onCheckoutCancelled }) {
     street: ''
   });
 
-  const handleSubmit = (event) => {
-    const form = event.target;
+  const handleSubmit = (event: FormEvent) => {
+    const form = event.target as HTMLFormElement;
     const dateFormatted = new Date().toLocaleString('pl-PL', {
       year: 'numeric',
       month: 'numeric',
@@ -140,9 +148,3 @@ function ContactData({ ingredients, price, onCheckoutCancelled }) {
 }
 
 export default ContactData;
-
-ContactData.propTypes = {
-  price: PropTypes.number.isRequired,
-  ingredients: PropTypes.object.isRequired,
-  onCheckoutCancelled: PropTypes.func.isRequired
-};

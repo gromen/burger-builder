@@ -133,7 +133,10 @@ const LoginPage = (): JSX.Element => {
           </Form>
         </Col>
       </Row>
-      <ToastContainer />
+      <ToastContainer
+        position="bottom-center"
+        style={{ width: '100%', maxWidth: '400px' }}
+      />
     </Container>
   );
 };

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import classes from './BurgerIngredient.module.css';
 
 interface PropsBurgerIngredient {
@@ -43,9 +42,5 @@ function BurgerIngredient({ type }: PropsBurgerIngredient): JSX.Element | null {
 
   return ingredient;
 }
-
-BurgerIngredient.propTypes = {
-  type: PropTypes.string.isRequired
-};
 
 export default BurgerIngredient;

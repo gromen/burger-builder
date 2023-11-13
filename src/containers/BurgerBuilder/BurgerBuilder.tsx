@@ -11,7 +11,6 @@ import WithErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import {
   setIngredients,
   setTotalPrice,
-  // updatePurchase,
   canPurchase as isPurchaseAvailable
 } from '../../store/ducks/burgerBuilder/slice';
 import INGREDIENT_PRICES from '../../utils/ingredientPrices';
@@ -102,10 +101,12 @@ const BurgerBuilder = (): JSX.Element => {
     }
   };
 
+  console.log({ ingredients });
   const disabledNote = { ...ingredients };
 
   for (const key in disabledNote) {
-    // @ts-expect-error problem with fix
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     disabledNote[key] = disabledNote[key] <= 0;
   }
 
