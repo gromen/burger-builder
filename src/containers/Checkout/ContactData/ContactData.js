@@ -47,7 +47,7 @@ function ContactData({ ingredients, price, onCheckoutCancelled }) {
 
       axios
         .post('/orders.json', order)
-        .then((response) => {
+        .then(() => {
           setLoading(false);
           setIsValidated(false);
           navigate('/');

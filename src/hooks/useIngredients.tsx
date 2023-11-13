@@ -3,21 +3,21 @@ import axios from '../axios-orders';
 
 type InitialValue = Array<Record<string, number>>;
 
-export const useIngredients = (initialValue: InitialValue): any => {
+export const useIngredients = (
+  initialValue: InitialValue
+): [boolean, boolean, InitialValue, () => Promise<void>] => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState(initialValue);
   const [error, setError] = useState(false);
 
-  const fetchIngredients = async (): Promise<any> => {
+  const fetchIngredients = async (): Promise<void> => {
     setLoading(true);
 
     try {
       const response = await axios.get('/ingredients.json');
       setData(response.data);
-      setLoading(false);
     } catch (error) {
       setError(true);
-      setLoading(false);
     } finally {
       setLoading(false);
     }
@@ -27,5 +27,5 @@ export const useIngredients = (initialValue: InitialValue): any => {
     void fetchIngredients();
   }, []);
 
-  return [loading, error, data, fetchIngredients] as const;
+  return [loading, error, data, fetchIngredients];
 };

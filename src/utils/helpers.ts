@@ -10,6 +10,7 @@ const calculateTimeToLogout = (expirationTime: number): number => {
 };
 
 export const runLogoutTimer = (
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   dispatch: (action: any) => void,
   expirationTime: number
 ): void => {

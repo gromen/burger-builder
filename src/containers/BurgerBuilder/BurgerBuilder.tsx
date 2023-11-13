@@ -31,10 +31,14 @@ const BurgerBuilder = (): JSX.Element => {
     (state) => state.burgerBuilderState.canPurchase
   );
   const [purchasing, setPurchasing] = useState(false);
-  const [loading, error, data] = useIngredients([]);
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  const [loading, error, data] = useIngredients<Ingredients>([]);
 
   useEffect(() => {
     if (data != null) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       dispatch(setIngredients(data));
     }
   }, [data]);

@@ -20,7 +20,6 @@ function Checkout() {
     }
 
     setIngredients(ingredientElements);
-    // eslint-disable-next-line
   }, []);
 
   function onCheckoutCancelledHandler() {
