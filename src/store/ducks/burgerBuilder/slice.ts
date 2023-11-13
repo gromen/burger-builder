@@ -27,31 +27,23 @@ const burgerBuilderSlice = createSlice({
       state,
       action: PayloadAction<typeof IngredientPrices>
     ) => ({
+      ...state,
       ingredients: action.payload,
-      totalPrice: state.totalPrice,
-      canPurchase: state.canPurchase,
-      isPurchasing: state.isPurchasing,
       error: state.error
     }),
     setTotalPrice: (state, action: PayloadAction<number>) => ({
-      ingredients: state.ingredients,
+      ...state,
       totalPrice: action.payload,
-      canPurchase: state.canPurchase,
-      isPurchasing: state.isPurchasing,
       error: state.error
     }),
     updatePurchase: (state, action: PayloadAction<boolean>) => ({
+      ...state,
       canPurchase: action.payload,
-      ingredients: state.ingredients,
-      totalPrice: state.totalPrice,
-      isPurchasing: state.isPurchasing,
       error: state.error
     }),
     canPurchase: (state, action: PayloadAction<boolean>) => ({
+      ...state,
       canPurchase: action.payload,
-      ingredients: state.ingredients,
-      totalPrice: state.totalPrice,
-      isPurchasing: state.isPurchasing,
       error: state.error
     }),
     isPurchasing: (state) => ({
