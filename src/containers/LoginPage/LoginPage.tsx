@@ -21,6 +21,15 @@ const LoginPage = (): JSX.Element => {
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
+  const onToastClose = () => {
+    setIsLogin(true);
+
+    if (emailFieldRef.current && passwordFieldRef.current) {
+      emailFieldRef.current.value = '';
+      passwordFieldRef.current.value = '';
+    }
+  };
+
   const onSubmit = (event: FormEvent): void => {
     event.preventDefault();
     setIsLoading(true);
@@ -52,7 +61,9 @@ const LoginPage = (): JSX.Element => {
 
     createUserWithEmailAndPassword(auth, emailEntered, passwordEntered)
       .then(() => {
-        toast.success('Account created successfully!');
+        toast.success('Account created successfully!', {
+          onClose: () => onToastClose()
+        });
       })
       .catch((error) => {
         toast.error(error.message);
@@ -135,6 +146,7 @@ const LoginPage = (): JSX.Element => {
       </Row>
       <ToastContainer
         position="bottom-center"
+        autoClose={2000}
         style={{ width: '100%', maxWidth: '400px' }}
       />
     </Container>
