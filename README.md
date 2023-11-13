@@ -1,6 +1,6 @@
-[Burger Builder live demo](https://burger-builder-19lfblxa6-gromen.vercel.app/)
+[Burger Builder live demo](https://burger-builder-git-dev-gromen.vercel.app/)
 
-login credentials for [demo](https://burger-builder-19lfblxa6-gromen.vercel.app/) site:
+login credentials for [demo](https://burger-builder-git-dev-gromen.vercel.app/) site:
 
-*   email: [user@test.com](mailto:user@test.com)
-*   pass: user.TestCom.At
+*   email: [test@example.pl](mailto:test@example.pl)
+*   pass: test@example.pl
