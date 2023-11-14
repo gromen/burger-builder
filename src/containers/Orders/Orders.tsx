@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+import { useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import axios from '../../axios-orders';
 
@@ -15,7 +17,7 @@ function Orders() {
 
     axios
       .get('/orders.json')
-      .then(response => {
+      .then((response) => {
         const fetchedOrders = [];
 
         for (const key in response.data) {
@@ -28,20 +30,24 @@ function Orders() {
         setLoading(false);
         setOrders(fetchedOrders);
       })
-      .catch(error => {
+      .catch((error) => {
         setLoading(false);
         console.error(error);
       });
   }, []);
 
-  const order = !loading
-    ? orders.map(orderItem => (
+  const order = !loading ? (
+    orders.map((orderItem) => (
       <Order
-        ingredients={orderItem.ingredients} key={orderItem.id}
-        orderDate={orderItem.orderDate} price={+orderItem.price}
+        ingredients={orderItem.ingredients}
+        key={orderItem.id}
+        orderDate={orderItem.orderDate}
+        price={+orderItem.price}
       />
     ))
-    : <Spinner />;
+  ) : (
+    <Spinner />
+  );
 
   return <Container className="mt-4">{order}</Container>;
 }

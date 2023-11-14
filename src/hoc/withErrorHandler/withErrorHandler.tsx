@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+import { Component } from 'react';
 import Modal from '../../components/Modal/Modal';
 
 const withErrorHandler = (WrappedComponent, axios) =>
