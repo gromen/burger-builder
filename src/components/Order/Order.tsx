@@ -1,6 +1,5 @@
-import React from 'react';
 import { Badge, Button, Card } from 'react-bootstrap';
-import { type Ingredients } from '../../utils/ingredientPrices';
+import { type Ingredients } from '@/utils/ingredientPrices';
 
 interface PropsOrder {
   ingredients: Ingredients;

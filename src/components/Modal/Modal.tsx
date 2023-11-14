@@ -1,6 +1,6 @@
 import React, { type ReactChildren, type ReactElement } from 'react';
-import classes from './Modal.module.css';
-import Backdrop from '../Backdrop/Backdrop';
+import classes from '@/components/Modal/Modal.module.css';
+import Backdrop from '@/components/Backdrop/Backdrop';
 
 interface PropsModal {
   show: boolean;

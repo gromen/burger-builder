@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type IngredientPrices from '../../../utils/ingredientPrices';
+import type IngredientPrices from '@/utils/ingredientPrices';
 
 type Ingredients = Record<string, number>;
 

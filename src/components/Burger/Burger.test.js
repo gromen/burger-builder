@@ -1,5 +1,5 @@
 import { screen } from '@testing-library/react';
-import { render } from '../../utils/test';
+import { render } from '@/utils/test';
 import Burger from './Burger';
 
 const ingredients = {
@@ -18,7 +18,9 @@ describe('Burger component', () => {
   it('render "Add ingredients, please" text when no error', () => {
     render(<Burger ingredients={ingredients} hasError={false} />);
 
-    const output = screen.getByText('add ingredients, please', { exact: false });
+    const output = screen.getByText('add ingredients, please', {
+      exact: false
+    });
 
     expect(output).toBeInTheDocument();
   });
@@ -26,7 +28,9 @@ describe('Burger component', () => {
   it('render "Sorry, something went wrong" text when error', () => {
     render(<Burger ingredients={ingredients} hasError />);
 
-    const output = screen.getByText('sorry, something went wrong', { exact: false });
+    const output = screen.getByText('sorry, something went wrong', {
+      exact: false
+    });
 
     expect(output).toBeInTheDocument();
   });
@@ -34,7 +38,9 @@ describe('Burger component', () => {
   it('does not render "Add ingredients, please" if has error', () => {
     render(<Burger ingredients={ingredients} hasError />);
 
-    const output = screen.queryByText('add ingredients, please', { exact: false });
+    const output = screen.queryByText('add ingredients, please', {
+      exact: false
+    });
 
     expect(output).toBeNull();
   });
@@ -42,7 +48,9 @@ describe('Burger component', () => {
   it('does not render "sorry, something went wrong" if has no error', () => {
     render(<Burger ingredients={ingredients} hasError={false} />);
 
-    const output = screen.queryByText('sorry, something went wrong', { exact: false });
+    const output = screen.queryByText('sorry, something went wrong', {
+      exact: false
+    });
 
     expect(output).toBeNull();
   });

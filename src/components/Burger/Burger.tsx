@@ -1,9 +1,7 @@
-import React from 'react';
-
 import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 import classes from './Burger.module.css';
-import classesGlobal from '../../App.module.css';
-import { type Ingredients } from '../../utils/ingredientPrices';
+import classesGlobal from '@/App.module.css';
+import { type Ingredients } from '@/utils/ingredientPrices';
 
 interface PropsBurger {
   ingredients: Ingredients;

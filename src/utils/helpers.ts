@@ -1,6 +1,8 @@
-import { userAuthActions } from '../store/ducks/user/slice';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+//@ts-ignore
+import { userAuthActions } from '@/store/ducks/user/slice';
 
-let logoutTimer: NodeJS.Timeout;
+let logoutTimer: number;
 
 const calculateTimeToLogout = (expirationTime: number): number => {
   const currentTime = new Date().getTime();
@@ -10,7 +12,6 @@ const calculateTimeToLogout = (expirationTime: number): number => {
 };
 
 export const runLogoutTimer = (
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   dispatch: (action: any) => void,
   expirationTime: number
 ): void => {

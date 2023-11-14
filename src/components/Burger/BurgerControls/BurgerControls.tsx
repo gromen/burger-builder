@@ -1,10 +1,8 @@
-import React from 'react';
-
 import BurgerControl from './BurgerControl/BurgerControl';
-import classes from './BurgerControl/BurgerControl.module.css';
-import classesGlobal from '../../../App.module.css';
-import CONTROLS from '../../../utils/controls';
-import { useAppSelector } from '../../../hooks/redux-toolkit';
+import classesGlobal from '@/App.module.css';
+import { CONTROLS, Control } from '@/utils/controls';
+import { useAppSelector } from '@/hooks/redux-toolkit';
+import Button from '@/components/UI/Button/Button';
 
 interface PropsBurgerControls {
   ingredientAdded: (type: string | number) => void;
@@ -30,7 +28,7 @@ const BurgerControls = ({
       <p className={classesGlobal.TextCenter}>
         Total price: <strong>{totalPrice}</strong>
       </p>
-      {CONTROLS.map((control) => (
+      {CONTROLS.map((control: Control) => (
         <BurgerControl
           added={() => {
             ingredientAdded(control.type);
@@ -44,14 +42,9 @@ const BurgerControls = ({
           disabledNote={disabled[control.type]}
         />
       ))}
-      <button
-        type="button"
-        className={classes.OrderButton}
-        disabled={canPurchase}
-        onClick={onClickOrder}
-      >
+      <Button btnType="Danger" disabled={canPurchase} clicked={onClickOrder}>
         Order burger
-      </button>
+      </Button>
     </div>
   );
 };

@@ -1,8 +1,7 @@
-import React from 'react';
-import Navigation from '../Navigation';
-import Logo from '../../Logo/Logo';
+import Navigation from '@/components/Navigation/Navigation';
+import Logo from '@/components/Logo/Logo';
 import classes from './SideDrawer.module.css';
-import Backdrop from '../../Backdrop/Backdrop';
+import Backdrop from '@/components/Backdrop/Backdrop';
 
 interface PropsSideDrawer {
   opened: boolean;

@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import axios from '../../axios-orders';
-import Burger from '../../components/Burger/Burger';
-import BurgerControls from '../../components/Burger/BurgerControls/BurgerControls';
-import Modal from '../../components/Modal/Modal';
-import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
-import Spinner from '../../components/Spinner/Spinner';
-import WithErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
+import axios from '@/axios-orders';
+import Burger from '@/components/Burger/Burger';
+import BurgerControls from '@/components/Burger/BurgerControls/BurgerControls';
+import Modal from '@/components/Modal/Modal';
+import OrderSummary from '@/components/Burger/OrderSummary/OrderSummary';
+import Spinner from '@/components/Spinner/Spinner';
+import WithErrorHandler from '@/hoc/withErrorHandler/withErrorHandler';
 import {
   setIngredients,
   setTotalPrice,
   canPurchase as isPurchaseAvailable
-} from '../../store/ducks/burgerBuilder/slice';
-import INGREDIENT_PRICES from '../../utils/ingredientPrices';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux-toolkit';
-import { useIngredients } from '../../hooks/useIngredients';
+} from '@/store/ducks/burgerBuilder/slice';
+import INGREDIENT_PRICES from '@/utils/ingredientPrices';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux-toolkit';
+import { useIngredients } from '@/hooks/useIngredients';
 
 const BurgerBuilder = (): JSX.Element => {
   const dispatch = useAppDispatch();
@@ -101,7 +101,6 @@ const BurgerBuilder = (): JSX.Element => {
     }
   };
 
-  console.log({ ingredients });
   const disabledNote = { ...ingredients };
 
   for (const key in disabledNote) {
@@ -125,7 +124,6 @@ const BurgerBuilder = (): JSX.Element => {
       <BurgerControls
         ingredientAdded={ingredientAdd}
         ingredientRemoved={ingredientRemove}
-        // @ts-expect-error TODO refactor disabled[disabledNote] to meet ts requirements
         disabled={disabledNote}
         canPurchase={canPurchase}
         onClickOrder={purchase}

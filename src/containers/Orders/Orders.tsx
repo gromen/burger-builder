@@ -2,11 +2,11 @@
 // @ts-nocheck
 import { useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container';
-import axios from '../../axios-orders';
+import axios from '@/axios-orders';
 
-import Spinner from '../../components/Spinner/Spinner';
-import Order from '../../components/Order/Order';
-import WithErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
+import Spinner from '@/components/Spinner/Spinner';
+import Order from '@/components/Order/Order';
+import WithErrorHandler from '@/hoc/withErrorHandler/withErrorHandler';
 
 function Orders() {
   const [loading, setLoading] = useState(false);

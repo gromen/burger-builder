@@ -1,5 +1,4 @@
-import React from 'react';
-import logoImg from '../../assets/images/burger-logo.png';
+import logoImg from '@/assets/images/burger-logo.png';
 import classes from './Logo.module.css';
 
 interface PropsLogo {

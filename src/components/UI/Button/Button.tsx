@@ -1,18 +1,25 @@
-import React, { type ReactNode } from 'react';
-import classes from './Button.module.css';
+import { type ReactNode } from 'react';
+import classes from '@components/UI/Button/Button.module.css';
 
 interface PropsButton {
   children: ReactNode;
   clicked: () => void;
-  btnType: string;
+  btnType: 'Success' | 'Danger';
+  disabled?: boolean;
 }
 
-function Button({ children, clicked, btnType }: PropsButton): JSX.Element {
+function Button({
+  children,
+  clicked,
+  btnType,
+  disabled
+}: PropsButton): JSX.Element {
   return (
     <button
       type="button"
       className={[classes.Button, classes[btnType]].join(' ')}
       onClick={clicked}
+      disabled={disabled}
     >
       {children}
     </button>

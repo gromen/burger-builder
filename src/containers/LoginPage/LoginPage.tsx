@@ -1,14 +1,15 @@
-import React, { type FormEvent, useRef, useState } from 'react';
+import { type FormEvent, useRef, useState } from 'react';
 import { Button, Col, Container, Form, Row, Spinner } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-// import { runLogoutTimer } from '../../utils/helpers';
-import { userAuthActions } from '../../store/ducks/user/slice';
-import { useAppDispatch } from '../../hooks/redux-toolkit';
+// import { runLogoutTimer } from '@/utils/helpers';
+import { userAuthActions } from '@/store/ducks/user/slice';
+import { useAppDispatch } from '@/hooks/redux-toolkit';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword
 } from 'firebase/auth';
-import { auth } from '../../firebase/fireabseConfig';
+//@ts-ignore
+import { auth } from '@/firebase/fireabseConfig';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 

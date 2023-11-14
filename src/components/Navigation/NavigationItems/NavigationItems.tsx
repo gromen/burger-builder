@@ -1,11 +1,10 @@
-import React from 'react';
 import { Button } from 'react-bootstrap';
-import { userAuthActions } from '../../../store/ducks/user/slice';
+import { userAuthActions } from '@/store/ducks/user/slice';
 import NavigationItem from './NavigationItem/NavigationItem';
 
 import classes from './NavigationItems.module.css';
-import { useAppDispatch, useAppSelector } from '../../../hooks/redux-toolkit';
-import { type AppDispatch } from '../../../store';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux-toolkit';
+import { type AppDispatch } from '@/store';
 
 const NavigationItems = (): JSX.Element => {
   const dispatch = useAppDispatch();

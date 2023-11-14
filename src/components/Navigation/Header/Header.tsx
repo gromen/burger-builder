@@ -1,7 +1,6 @@
-import React from 'react';
 import classes from './Header.module.css';
-import Navigation from '../Navigation';
-import Logo from '../../Logo/Logo';
+import Navigation from '@/components/Navigation/Navigation';
+import Logo from '@/components/Logo/Logo';
 
 interface PropsHeader {
   clickedLogo: () => void;

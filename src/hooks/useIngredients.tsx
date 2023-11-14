@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from '../axios-orders';
+import axios from '@/axios-orders';
 
 type InitialValue = Array<Record<string, number>>;
 

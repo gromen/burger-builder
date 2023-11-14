@@ -5,7 +5,7 @@ import {
   // eslint-disable-next-line @typescript-eslint/no-restricted-imports
   useSelector
 } from 'react-redux';
-import type { RootState, AppDispatch } from '../store';
+import type { RootState, AppDispatch } from '@/store';
 
 // Use throughout your app instead of plain `useDispatch` and `useSelector`
 type DispatchFunc = () => AppDispatch;

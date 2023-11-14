@@ -1,14 +1,15 @@
-import React, { type FormEvent, useRef, useState } from 'react';
+import { type FormEvent, useRef, useState } from 'react';
 import { Button, Col, Container, Form, Row, Spinner } from 'react-bootstrap';
-import Modal from '../../components/Modal/Modal';
+import Modal from '@/components/Modal/Modal';
 import {
   updatePassword,
   reauthenticateWithCredential,
   EmailAuthProvider,
   onAuthStateChanged
 } from 'firebase/auth';
-import LoginPage from '../LoginPage/LoginPage';
-import { auth } from '../../firebase/fireabseConfig';
+import LoginPage from '@/containers/LoginPage/LoginPage';
+//@ts-ignore
+import { auth } from '@/firebase/fireabseConfig';
 
 const UserProfilePage = (): JSX.Element => {
   const passwordFieldRef = useRef<HTMLInputElement>(null);

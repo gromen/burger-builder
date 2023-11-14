@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { clearLogoutTimer } from '../../../utils/helpers';
+import { clearLogoutTimer } from '@/utils/helpers';
 
 const initialState = {
   isLoggedIn: false,

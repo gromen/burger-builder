@@ -1,7 +1,7 @@
-import React, { type ReactChildren, type ReactElement, useState } from 'react';
+import { type ReactChildren, type ReactElement, useState } from 'react';
 
-import Header from '../../components/Navigation/Header/Header';
-import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
+import Header from '@/components/Navigation/Header/Header';
+import SideDrawer from '@/components/Navigation/SideDrawer/SideDrawer';
 
 interface PropsLayout {
   children: ReactChildren | ReactElement;

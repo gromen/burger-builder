@@ -1,10 +1,11 @@
-import React, { FormEvent, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
-import axios from '../../../axios-orders';
-import Spinner from '../../../components/Spinner/Spinner';
-import useForm from '../../../hooks/useForm';
+import axios from '@/axios-orders';
+import Spinner from '@/components/Spinner/Spinner';
+//@ts-ignore
+import useForm from '@/hooks/useForm';
 
 import classes from './ContactData.module.css';
 export type ContactDataProps = {

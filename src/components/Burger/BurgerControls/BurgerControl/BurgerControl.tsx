@@ -1,4 +1,3 @@
-import React from 'react';
 import classes from './BurgerControl.module.css';
 
 interface PropsBurgerControl {
