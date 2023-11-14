@@ -115,7 +115,7 @@ const LoginPage = (): JSX.Element => {
                 required
                 ref={emailFieldRef}
                 type="email"
-                placeholder="Type 'user@test.com'"
+                placeholder="Enter email address"
               />
             </Form.Group>
 
@@ -125,7 +125,7 @@ const LoginPage = (): JSX.Element => {
                 required
                 ref={passwordFieldRef}
                 type="password"
-                placeholder="Type 'user.TestCom.At'"
+                placeholder="Enter password"
                 // pattern="^(?=.*[a-z])(?=.*[A-Z]).{8,}$"
               />
             </Form.Group>
