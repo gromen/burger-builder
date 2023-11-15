@@ -1,4 +1,6 @@
-import { Badge, Button, Card } from 'react-bootstrap';
+import Badge from 'react-bootstrap/Badge';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 import { type Ingredients } from '@/utils/ingredientPrices';
 
 interface PropsOrder {
@@ -20,12 +22,12 @@ function Order({ ingredients, price, orderDate }: PropsOrder): JSX.Element {
   const orderIngredientsOutput = orderIngredients.map((ingredient) => (
     <Button
       type="button"
-      className="mr-2 mt-2 mt-md-0 d-block d-md-inline-block text-capitalize"
+      className="me-2 mt-2 mt-md-0 d-block d-md-inline-block text-capitalize"
       variant="primary"
       key={ingredient.name}
     >
-      {ingredient.name} <Badge variant="light">{ingredient.amount}</Badge>
-      <span className="sr-only">
+      {ingredient.name} <Badge bg="secondary">{ingredient.amount}</Badge>
+      <span className="visually-hidden">
         {ingredient.name} amount:
         {ingredient.amount}
       </span>

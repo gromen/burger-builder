@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import axios from '@/axios-orders';
-
 import Spinner from '@/components/Spinner/Spinner';
 import Order from '@/components/Order/Order';
 import WithErrorHandler from '@/hoc/withErrorHandler/withErrorHandler';
@@ -13,27 +12,30 @@ function Orders() {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    setLoading(true);
+    async function fetchOrders() {
+      try {
+        setLoading(true);
+        const response = await axios.get('/orders.json');
+        const fetchedOrders = Object.entries(response.data).map(
+          ([id, order]) => ({
+            ...order,
+            id
+          })
+        );
 
-    axios
-      .get('/orders.json')
-      .then((response) => {
-        const fetchedOrders = [];
+        const ordersChanged =
+          JSON.stringify(fetchedOrders) !== JSON.stringify(orders);
 
-        for (const key in response.data) {
-          fetchedOrders.push({
-            ...response.data[key],
-            id: key
-          });
+        if (ordersChanged) {
+          setOrders(fetchedOrders);
         }
-
-        setLoading(false);
-        setOrders(fetchedOrders);
-      })
-      .catch((error) => {
-        setLoading(false);
+      } catch (error) {
         console.error(error);
-      });
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchOrders();
   }, []);
 
   const order = !loading ? (

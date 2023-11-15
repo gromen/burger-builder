@@ -2,7 +2,7 @@
 //@ts-ignore
 import { userAuthActions } from '@/store/ducks/user/slice';
 
-let logoutTimer: number;
+let logoutTimer: NodeJS.Timeout;
 
 const calculateTimeToLogout = (expirationTime: number): number => {
   const currentTime = new Date().getTime();
