@@ -3,20 +3,14 @@ import { useRef } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 // import { runLogoutTimer } from '@/utils/helpers';
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.min.css';
 import { signIn, signOut, useSession } from 'next-auth/react';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 export const LoginForm = (): JSX.Element => {
   const { data: session } = useSession();
   const emailFieldRef = useRef<HTMLInputElement>(null);
   const passwordFieldRef = useRef<HTMLInputElement>(null);
 
-  const onToastClose = () => {
-    if (emailFieldRef.current && passwordFieldRef.current) {
-      emailFieldRef.current.value = '';
-      passwordFieldRef.current.value = '';
-    }
-  };
   // const onClickSwitchAuthMethod = () => {
   //   setIsAuthenticated((prevAuth) => !prevAuth.user);
   // };
@@ -54,7 +48,8 @@ export const LoginForm = (): JSX.Element => {
           <h1 className="h3 text-center mb-3">
             {session?.user ? 'Log out' : 'Login up'}
           </h1>
-          <Form>
+          <Form method="post" action="/api/auth/callback/credentials">
+            {/* <input name="csrfToken" type="hidden" defaultValue={csrfToken} /> */}
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
               <Form.Control
