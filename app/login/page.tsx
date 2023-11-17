@@ -1,22 +1,13 @@
 'use client';
 import LoginForm from '@/components/LoginForm/LoginForm';
-import { useAppDispatch } from '@/hooks/redux-toolkit';
-import { userAuthActions } from '@/store/ducks/user/slice';
-import { useEffect, useState } from 'react';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
-const Login = (): JSX.Element => {
-  const dispatch = useAppDispatch();
-  const [token, setToken] = useState('');
+const LoginPage = (): JSX.Element => {
+  const { data: session } = useSession();
+  const router = useRouter();
 
-  useEffect(() => {
-    const tokenCached = localStorage.getItem('token');
-    if (tokenCached != null) {
-      setToken(tokenCached);
-      dispatch(userAuthActions.login(tokenCached));
-    }
-  }, []);
-
-  return <>{!token && <LoginForm />}</>;
+  return <>{session?.user ? router.push('/') : <LoginForm />}</>;
 };
 
-export default Login;
+export default LoginPage;

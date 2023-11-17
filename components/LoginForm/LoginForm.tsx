@@ -1,109 +1,44 @@
 'use client';
-import { type FormEvent, useRef, useState } from 'react';
-import { Button, Col, Container, Form, Row, Spinner } from 'react-bootstrap';
-import { useRouter } from 'next/navigation';
+import { useRef } from 'react';
+import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 // import { runLogoutTimer } from '@/utils/helpers';
-import { userAuthActions } from '@/store/ducks/user/slice';
-import { useAppDispatch } from '@/hooks/redux-toolkit';
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword
-} from 'firebase/auth';
-import { auth } from '@/firebase/fireabseConfig';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
+import { signIn, signOut, useSession } from 'next-auth/react';
 
-const LoginForm = (): JSX.Element => {
-  const router = useRouter();
-  const dispatch = useAppDispatch();
+export const LoginForm = (): JSX.Element => {
+  const { data: session } = useSession();
   const emailFieldRef = useRef<HTMLInputElement>(null);
   const passwordFieldRef = useRef<HTMLInputElement>(null);
-  const [isLogin, setIsLogin] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
 
   const onToastClose = () => {
-    setIsLogin(true);
-
     if (emailFieldRef.current && passwordFieldRef.current) {
       emailFieldRef.current.value = '';
       passwordFieldRef.current.value = '';
     }
   };
-
-  const onSubmit = (event: FormEvent): void => {
-    event.preventDefault();
-    setIsLoading(true);
-
-    const emailEntered = emailFieldRef.current?.value as string;
-    const passwordEntered = passwordFieldRef.current?.value as string;
-
-    if (isLogin) {
-      signInWithEmailAndPassword(auth, emailEntered, passwordEntered)
-        .then((userCredential) => {
-          const user = userCredential.user;
-
-          // const timeToLogout = new Date(new Date().getTime() + +expiresIn * 1000);
-          dispatch(
-            // @ts-expect-error sasa
-            userAuthActions.login(user.accessToken)
-          );
-          // runLogoutTimer(dispatch, timeToLogout);
-          router.push('/');
-        })
-        .catch((error) => {
-          toast.error(error.message);
-          console.error(error.code);
-          console.error(error.message);
-          setIsLoading(false);
-        });
-      return;
-    }
-
-    createUserWithEmailAndPassword(auth, emailEntered, passwordEntered)
-      .then(() => {
-        toast.success('Account created successfully!', {
-          onClose: () => onToastClose()
-        });
-      })
-      .catch((error) => {
-        toast.error(error.message);
-        console.error(error.code);
-        console.error(error.message);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  };
-
-  const onClickSwitchAuthMethod = (): void => {
-    setIsLogin((prevState) => !prevState);
-  };
+  // const onClickSwitchAuthMethod = () => {
+  //   setIsAuthenticated((prevAuth) => !prevAuth.user);
+  // };
 
   const AuthMethodButtonText = (): JSX.Element => (
     <>
-      <Button className="w-100 mb-2" variant="primary" type="submit">
-        {isLoading && (
-          <Spinner
-            className="mr-2"
-            as="span"
-            animation="border"
-            size="sm"
-            role="status"
-            aria-hidden="true"
-          />
-        )}
-        {isLogin ? 'Login' : 'Create Account'}
+      <Button
+        className="w-100 mb-2"
+        variant="primary"
+        type="submit"
+        onClick={() => (session?.user ? signOut() : signIn())}
+      >
+        {session?.user ? 'Sign out' : 'Sign in'}
       </Button>
       <Form.Text style={{ display: 'inline-block' }}>
-        {isLogin ? "Don't have an account ? " : 'Already have an account ? '}
+        {session?.user
+          ? "Don't have an account ? "
+          : 'Already have an account ? '}
       </Form.Text>
-      <Button
-        variant="link"
-        className="text-dark p-0 pl-1 btn-out"
-        onClick={onClickSwitchAuthMethod}
-      >
+      <Button variant="link" className="text-dark p-0 pl-1 btn-out">
         <small className="text-danger">
-          {isLogin ? 'Register now.' : 'Log in'}
+          {session?.user ? 'Sign in' : 'Sign out'}
         </small>
       </Button>
       <Form.Text className="mt-4 text-muted">
@@ -117,13 +52,13 @@ const LoginForm = (): JSX.Element => {
       <Row className="justify-content-center">
         <Col xs lg="6">
           <h1 className="h3 text-center mb-3">
-            {isLogin ? 'Sign in' : 'Sign up'}
+            {session?.user ? 'Log out' : 'Login up'}
           </h1>
-          <Form onSubmit={onSubmit}>
+          <Form>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
               <Form.Control
-                required
+                // required
                 ref={emailFieldRef}
                 type="email"
                 placeholder="Enter email address"
@@ -133,7 +68,7 @@ const LoginForm = (): JSX.Element => {
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Password</Form.Label>
               <Form.Control
-                required
+                // required
                 ref={passwordFieldRef}
                 type="password"
                 placeholder="Enter password"

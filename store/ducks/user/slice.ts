@@ -2,11 +2,18 @@
 import { createSlice } from '@reduxjs/toolkit';
 // import { clearLogoutTimer } from '@/utils/helpers';
 
-const initialState = {
-  isLoggedIn: false,
-  idToken: '',
-  expiresIn: ''
-};
+export interface LoginResponse {
+  kind: string;
+  localId: string;
+  email: string;
+  displayName: string;
+  idToken: string;
+  registered: boolean;
+  refreshToken: string;
+  expiresIn: string;
+}
+
+const initialState: Partial<LoginResponse> = {};
 
 const userAuthSlice = createSlice({
   name: 'userAuth',
@@ -39,6 +46,6 @@ const userAuthSlice = createSlice({
   }
 });
 
-export const userAuthActions = userAuthSlice.actions;
+export const { login, logout } = userAuthSlice.actions;
 
 export default userAuthSlice.reducer;

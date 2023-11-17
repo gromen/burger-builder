@@ -18,7 +18,7 @@ function Burger({ ingredients, hasError }: PropsBurger): JSX.Element {
         />
       ))
     )
-    .reduce((arr, curr) => arr.concat(curr), []);
+    .flat();
 
   if (ingredientsAll.length === 0) {
     ingredientsAll = (
