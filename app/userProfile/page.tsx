@@ -2,20 +2,12 @@
 import { type FormEvent, useRef, useState } from 'react';
 import { Button, Col, Container, Form, Row, Spinner } from 'react-bootstrap';
 import Modal from '@/components/Modal/Modal';
-import {
-  updatePassword,
-  reauthenticateWithCredential,
-  EmailAuthProvider,
-  onAuthStateChanged
-} from 'firebase/auth';
 import LoginForm from '@/components/LoginForm/LoginForm';
-import { auth } from '@/firebase/fireabseConfig';
 
 const UserProfilePage = (): JSX.Element => {
   const passwordFieldRef = useRef<HTMLInputElement>(null);
   const [isModal, setIsModal] = useState(false);
   const [status, setStatus] = useState('');
-  const currentUser = auth.currentUser;
 
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type,@typescript-eslint/no-unused-vars
   const handleClose = () => {
@@ -24,32 +16,8 @@ const UserProfilePage = (): JSX.Element => {
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type,@typescript-eslint/no-unused-vars
   const onSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    const enteredNewPassword = passwordFieldRef?.current?.value;
 
-    if (currentUser == null) return;
-    if (enteredNewPassword == null) return;
-
-    const credential = EmailAuthProvider.credential(
-      currentUser?.email as string,
-      enteredNewPassword
-    );
-
-    // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    onAuthStateChanged(auth, async (user): Promise<void> => {
-      if (user?.uid !== currentUser.uid) {
-        try {
-          await reauthenticateWithCredential(currentUser, credential);
-        } catch (error) {
-          setIsModal(true);
-          console.error(error);
-        }
-      } else {
-        setStatus('updating');
-        await updatePassword(currentUser, enteredNewPassword).then(() => {
-          setStatus('updated');
-        });
-      }
-    });
+    // TODO - validate password
   };
 
   return (
